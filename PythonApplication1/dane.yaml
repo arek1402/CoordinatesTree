@@ -1,0 +1,36 @@
+Link0:
+ Name: "Base link"
+ ID: 0
+ Master_link: -1
+ Cords:
+  X: 4.5
+  Y: 0.1
+  Z: 0.2
+  Scalar: 0.71
+  RotX: 1.0
+  RotY: 0.0
+  RotZ: 0.0
+Link1:
+ Name: "Camera link"
+ ID: 1
+ Master_link: 0
+ Cords:
+  X: 0.4
+  Y: 0.5
+  Z: 0.6
+  Scalar: 0.65
+  RotX: 0.7
+  RotY: 0.8
+  RotZ: 0.9
+Link2:
+ Name: "Tail link"
+ ID: 2
+ Master_link: 0
+ Cords:
+  X: 1.0
+  Y: 2.0
+  Z: 3.0
+  Scalar: 3.5
+  RotX: 4.0
+  RotY: 5.0
+  RotZ: 6.0

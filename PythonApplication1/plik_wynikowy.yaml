@@ -1,0 +1,18 @@
+coords:
+  phi: 0.0
+  thera: 0.0
+  x: 0.0
+  xi: 0.0
+  y: 0.0
+  z: 0.0
+id: 0
+name: 'Base link'
+coords:
+  phi: 5.0
+  thera: 0.0
+  x: 0.0
+  xi: 0.0
+  y: 0.0
+  z: 0.0
+id: 3
+name: 'Camera link'
