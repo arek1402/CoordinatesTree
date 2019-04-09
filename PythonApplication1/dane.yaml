@@ -25,7 +25,7 @@ Link1:
 Link2:
  Name: "Tail link"
  ID: 2
- Master_link: 0
+ Master_link: 1
  Cords:
   X: 1.0
   Y: 2.0
@@ -34,3 +34,15 @@ Link2:
   RotX: 4.0
   RotY: 5.0
   RotZ: 6.0
+Link3:
+ Name: "XXX"
+ ID: 3
+ Master_link: 1
+ Cords:
+  X: 7.0
+  Y: 8.0
+  Z: 9.0
+  Scalar: 10.5
+  RotX: 14.0
+  RotY: 15.0
+  RotZ: 61.0

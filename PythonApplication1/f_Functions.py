@@ -47,7 +47,7 @@ def agregate_parsed_data(data):
             base_link.get_rotation_matrix()
             base_link.rad2deg()
             base_link.get_coordinate_system()
-            print(base_link.coordinate_system)
+            #print(base_link.coordinate_system)
        else:
             #print(row)
             other_link = extract_data_from_record(row)
@@ -59,6 +59,28 @@ def agregate_parsed_data(data):
        i = i+1
    
    return base_link, all_other_links
+
+# Składa wszystkie układy do jednego wektora danych, gdzie układ bazowy jest na pierwszym miejscu
+def make_data_consistent(base_link, other_links):
+    result = []
+    result.append(base_link)
+    for i in other_links:
+        result.append(i)
+
+    return result
+
+# Znajduje układy zależne od badanego i uzupełnia wektor danych o te informacje
+def find_dependencies(all_links):
+    new_links = []
+    new_link = c_Link()
+
+    for i in all_links:
+        new_link = i
+        new_link.find_childs(all_links)
+        new_links.append(new_link)
+
+    return new_links
+
 
 # Konwersja ze stopni na radiany
 def deg2rad(number_in_degrees):
@@ -97,7 +119,7 @@ def agregate_data_to_save(base_link, other_links):
         ol = record_injection(i)
         ag_data.append(ol)
 
-    print(ag_data)
+    #print(ag_data)
     return ag_data
 
 def save_result_to_yaml(path, data):

@@ -60,12 +60,12 @@ class c_Link(object):
             for j in range(len(self.rot_matrix[i])):
                 self.rot_matrix[i][j] = self.rot_matrix[i][j] * 180.0 / np.pi
 
+    # Znajdowanie układów zależnych od układu badanego
     def find_childs(self, data):
         for i in data:
-            if i.master_id == self.id:
+            if self.id == i.master_id:
                 temp = c_Childs()
-                temp.id = data.id
-                temp_mat = self.coordinate_system * i.coordinate_system
-                temp.transformation_matrix = temp_mat
+                temp.id = i.id
+                #temp_mat = self.coordinate_system * i.coordinate_system
+                #temp.transformation_matrix = temp_mat
                 self.childs.append(temp)
-
