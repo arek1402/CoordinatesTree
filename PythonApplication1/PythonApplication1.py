@@ -14,6 +14,15 @@ base_link, other_links = agregate_parsed_data(data)
 print(base_link.id)
 print('\n')
 all_data = make_data_consistent(base_link, other_links)
+
+for i in all_data:
+    print('\n')
+    print(i.name)
+    print('\n')
+    print(i.coordinate_system)
+
+a = input('Czekaj')
+
 #pr_data = agregate_data_to_save(Base_link, Other_links)
 temp = find_dependencies(all_data)
 for i in temp:
@@ -21,6 +30,10 @@ for i in temp:
         print(i.name)
         print('\n')
         print(j.id)
+        print('\n')
+        print(j.transformation_matrix)
+        print('\n')
+        print('Invetrted: ',i.link.inverted)
         print('\n')
 
 #save_result_to_yaml("gowno.yaml",pr_data)

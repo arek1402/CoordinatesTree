@@ -10,11 +10,13 @@ class c_Link(object):
         self.name = ""
         self.id = -1
         self.master_id = 0
+        self.inverted = 0
         self.coordinates = c_Coordinates()
         self.rot_matrix = np.zeros([4,4])
         self.translation = np.zeros(3)
         self.coordinate_system = np.zeros([4,4])
         self.childs = []
+
     # Przepisanie danych odczytanych z pliku do macierzy translacji
     def get_translation_matrix(self):
         self.translation = np.array([self.coordinates.x, self.coordinates.y, self.coordinates.z])
@@ -65,7 +67,7 @@ class c_Link(object):
         for i in data:
             if self.id == i.master_id:
                 temp = c_Childs()
-                temp.id = i.id
-                #temp_mat = self.coordinate_system * i.coordinate_system
-                #temp.transformation_matrix = temp_mat
+                temp.link = i 
+                temp.get_transformation_matrix(self.coordinate_system, i.coordinate_system)
                 self.childs.append(temp)
+    

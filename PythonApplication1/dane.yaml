@@ -2,6 +2,7 @@ Link0:
  Name: "Base link"
  ID: 0
  Master_link: -1
+ Inverted: 0
  Cords:
   X: 4.5
   Y: 0.1
@@ -14,6 +15,7 @@ Link1:
  Name: "Camera link"
  ID: 1
  Master_link: 0
+ Inverted: 0
  Cords:
   X: 0.4
   Y: 0.5
@@ -26,6 +28,7 @@ Link2:
  Name: "Tail link"
  ID: 2
  Master_link: 1
+ Inverted: 0
  Cords:
   X: 1.0
   Y: 2.0
@@ -38,6 +41,7 @@ Link3:
  Name: "XXX"
  ID: 3
  Master_link: 1
+ Inverted: 1
  Cords:
   X: 7.0
   Y: 8.0

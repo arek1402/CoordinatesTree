@@ -1,5 +1,6 @@
 
 from c_Coordinates import *
+from c_Childs import *
 from c_Link import *
 import numpy as np
 import pyquaternion as pq
@@ -17,6 +18,7 @@ def extract_data_from_record(record):
     link.name = record['Name']
     link.id = record['ID']
     link.master_id = record['Master_link']
+    link.inverted = record['Inverted']
     link.coordinates.x = record['Cords']['X']
     link.coordinates.y = record['Cords']['Y']
     link.coordinates.z = record['Cords']['Z']
