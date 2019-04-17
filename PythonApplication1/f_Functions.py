@@ -130,9 +130,27 @@ def save_result_to_yaml(path, data):
     with open(path, 'w') as outfile:
         yaml.dump(dictionary,outfile,default_flow_style =False)
 
+#Pobiera z listy układów cLink układ o zadanym ID
+def get_cLink(cLink_id, data):
+    
+    for i in data:
+        if i.id == cLink_id:
+            result = i
+    return result
 
 
-
+def analzye_tree(current_transformation, current_id):
+    result_matrix = []
+    current_Link = get_cLink(current_id, data)
+    if(len(current_Link.childs) == 0):
+        #Obsluga wyjscia z rekurencji
+#    if (have_child == False):
+        #Transformacja względem bazowego
+#        print('a')
+#    else
+        #Wywolanie rekurencyjne
+        #3        #Petla po dzieciach
+       #print('b')
 
 
 

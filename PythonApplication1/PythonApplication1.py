@@ -23,17 +23,15 @@ for i in all_data:
 
 a = input('Czekaj')
 
+
+
 #pr_data = agregate_data_to_save(Base_link, Other_links)
 temp = find_dependencies(all_data)
-for i in temp:
-    for j in i.childs:
-        print(i.name)
-        print('\n')
-        print(j.id)
-        print('\n')
-        print(j.transformation_matrix)
-        print('\n')
-        print('Invetrted: ',i.link.inverted)
-        print('\n')
+
+
+
+
+
+
 
 #save_result_to_yaml("gowno.yaml",pr_data)

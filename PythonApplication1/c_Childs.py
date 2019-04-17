@@ -1,13 +1,12 @@
 import numpy as np
-from c_Link import *
-from c_Coordinates import *
-from f_Functions import *
+#from c_Link import *
+#from c_Coordinates import *
+#from f_Functions import *
 
 class c_Childs(object):
     """description of class"""
     def __init__(self):
         id = -1
-        link = c_Link()
         transformation_matrix = np.array([4,4])
 
 
