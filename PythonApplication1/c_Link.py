@@ -67,9 +67,20 @@ class c_Link(object):
         for i in data:
             if self.id == i.master_id:
                 temp = c_Childs()
-                temp.link = i 
+                temp.id = i.id
                 temp.get_transformation_matrix(self.coordinate_system, i.coordinate_system)
                 self.childs.append(temp)
 
-    
-    
+    # Zwraca liste idendtyfikatorów układów zależnych od badanego
+    def get_childs_list(self):
+        list = []
+        if len(self.childs) != 0:
+            for j in self.childs:
+                list.append(j.id)
+            return list
+
+    # Zwraca potomka na podstawie jego identyfikatora
+    def find_child_by_id(self, id):
+        for child in self.childs:
+            if child.id == id:
+                return child

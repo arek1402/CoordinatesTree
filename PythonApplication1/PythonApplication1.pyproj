@@ -29,6 +29,9 @@
     <Compile Include="c_Link.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="c_Result.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="f_Functions.py">
       <SubType>Code</SubType>
     </Compile>

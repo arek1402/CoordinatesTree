@@ -5,6 +5,7 @@ from c_Coordinates import *
 from c_Link import *
 from c_Childs import *
 from f_Functions import *
+from c_Result import*
 
 #Deklaracja zmiennych globalnych
 
@@ -27,9 +28,17 @@ a = input('Czekaj')
 
 #pr_data = agregate_data_to_save(Base_link, Other_links)
 temp = find_dependencies(all_data)
+result_matrix = []
+
+for i in all_data:
+    temp = None
+    temp = analzye_tree(i, all_data)
+    if temp != None:
+        result_matrix.append(temp)
 
 
-
+for j in result_matrix:
+    print('Znalezione:',j.id, '\n')
 
 
 

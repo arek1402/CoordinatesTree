@@ -2,6 +2,7 @@
 from c_Coordinates import *
 from c_Childs import *
 from c_Link import *
+from c_Result import *
 import numpy as np
 import pyquaternion as pq
 import yaml
@@ -132,26 +133,33 @@ def save_result_to_yaml(path, data):
 
 #Pobiera z listy układów cLink układ o zadanym ID
 def get_cLink(cLink_id, data):
-    
+    result = 0
     for i in data:
         if i.id == cLink_id:
             result = i
+     
     return result
 
 
-def analzye_tree(current_transformation, current_id):
-    result_matrix = []
-    current_Link = get_cLink(current_id, data)
-    if(len(current_Link.childs) == 0):
-        #Obsluga wyjscia z rekurencji
-#    if (have_child == False):
-        #Transformacja względem bazowego
-#        print('a')
-#    else
-        #Wywolanie rekurencyjne
-        #3        #Petla po dzieciach
-       #print('b')
 
+#Analiza drzewa potomków
+def analzye_tree(data_record,data):
+    # Macierz wynikowa - przechowuje ID układu i jego transformację względem układu bazowego
+    record = c_Result()
+    current_link = c_Link()
+    main_index = 0
+    temp_index = 0
 
-
- 
+    #Jeśli pobrany układ nie ma potomków to zapisuje do macierzy wynikowej aktualną transformację względem układu bazowego
+    if(len(data_record.childs) != 0):
+        child_list = data_record.get_childs_list()
+        for i in child_list:
+            first_child = get_cLink(i,data)
+            if len(first_child.childs) == 0:
+                temp = data_record.find_child_by_id(i)
+                record.id = temp.id
+                record.transform = temp.transformation_matrix
+               
+    return record
+        
+   
