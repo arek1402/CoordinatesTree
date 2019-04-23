@@ -72,19 +72,6 @@ def make_data_consistent(base_link, other_links):
 
     return result
 
-# Znajduje układy zależne od badanego i uzupełnia wektor danych o te informacje
-def find_dependencies(all_links):
-    new_links = []
-    new_link = c_Link()
-
-    for i in all_links:
-        new_link = i
-        new_link.find_childs(all_links)
-        new_links.append(new_link)
-
-    return new_links
-
-
 # Konwersja ze stopni na radiany
 def deg2rad(number_in_degrees):
     return number_in_degrees * np.pi / 180.0
@@ -140,26 +127,49 @@ def get_cLink(cLink_id, data):
      
     return result
 
+#Znajduje potomków układu o zadanym ID
+def find_childs(link_id, all_data):
 
+    result_tab = []
+    number_of_childs = 0
 
-#Analiza drzewa potomków
-def analzye_tree(data_record,data):
-    # Macierz wynikowa - przechowuje ID układu i jego transformację względem układu bazowego
-    record = c_Result()
-    current_link = c_Link()
-    main_index = 0
-    temp_index = 0
+    for i in all_data:
+        if(i.master_id == link_id):
+            result_tab.append(i.id)
+            number_of_childs += 1
 
-    #Jeśli pobrany układ nie ma potomków to zapisuje do macierzy wynikowej aktualną transformację względem układu bazowego
-    if(len(data_record.childs) != 0):
-        child_list = data_record.get_childs_list()
-        for i in child_list:
-            first_child = get_cLink(i,data)
-            if len(first_child.childs) == 0:
-                temp = data_record.find_child_by_id(i)
-                record.id = temp.id
-                record.transform = temp.transformation_matrix
-               
-    return record
-        
-   
+    return number_of_childs, result_tab
+
+#Sprawdź czy potomkowie układu zostali już przetworzeni przez algorytm
+def check_childs_status(tab_of_childs, all_data):
+    number_of_childs = len(tab_of_childs)
+    number_of_checked = 0
+    for i in tab_of_childs:
+        temp = get_cLink(i,all_data)
+        if (temp.checked == True):
+            number_of_checked += 1 
+
+    if (number_of_checked == number_of_childs):
+        return True
+    else:
+        return False
+
+    #Zwraca pierwszy wolny identyfikator niesprawdzonego układu
+def get_first_child_id(tab_of_childs, all_data):
+    
+    for i in tab_of_childs:
+        temp = get_cLink(i, all_data)
+        if(temp.checked == False):
+            return i
+
+ #zmienia status układu na "Checked"
+def change_status(link_id, all_data):
+
+    new_data = []
+    for i in all_data:
+        if(i.id == link_id):
+            i.checked = True
+        new_data.append(i)
+
+     return new_data
+

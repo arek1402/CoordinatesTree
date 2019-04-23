@@ -24,10 +24,6 @@ for i in all_data:
 
 a = input('Czekaj')
 
-
-
-#pr_data = agregate_data_to_save(Base_link, Other_links)
-temp = find_dependencies(all_data)
 result_matrix = []
 
 for i in all_data:
