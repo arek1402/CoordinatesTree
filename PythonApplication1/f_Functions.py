@@ -153,10 +153,11 @@ def find_childs(link_id):
 
 #Sprawdź czy potomkowie układu zostali już przetworzeni przez algorytm - True - tak, wszystkie układy sprawdzone, False - jeden lub kilka układów jest niesprawdzonych
 def check_childs_status(tab_of_childs, all_data):
+
     number_of_childs = len(tab_of_childs)
     number_of_checked = 0
     for i in tab_of_childs:
-        temp = get_cLink(i,all_data)
+        temp = get_cLink(i)
         if (temp.checked == True):
             number_of_checked += 1 
 
@@ -212,7 +213,7 @@ def make_transformation(master_link_transformation, slave_link_transformation, i
         return result
    
     else:
-        temp_matrix = np.inv(master_link_transformation)
+        temp_matrix = nplg.inv(master_link_transformation)
         result_inv = np.matmul(temp_matrix, slave_link_transformation)
         return result_inv
 
@@ -236,7 +237,7 @@ def analyze_tree(link_id, link_transformation):
     number_of_childs, childs = find_childs(current_link_id) #Wyszukuje potomków danego układu
 
     if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
-        childs_status = check_childs_status(childs, all_data)
+        childs_status = check_childs_status(childs, all_links)
 
     if(number_of_childs == 0 or childs_status == True): #Jesli dany uklad nie ma potomkow to zapisz aktualne przekształcenie do bazy wynikow
 
@@ -247,7 +248,7 @@ def analyze_tree(link_id, link_transformation):
 
        change_status(current_link_id) #Zmienia status danego ukladu na sprawdzony
 
-       current_transformation = np.eye(1)
+       current_transformation = np.eye(4)
        current_link_id = get_base_link_id() #Wyszukuje w bazie układ bazowy i pobiera jego ID
        analyze_tree(current_link_id, current_transformation)
 
@@ -259,6 +260,8 @@ def analyze_tree(link_id, link_transformation):
         current_transformation = make_transformation(current_transformation, child_link.coordinate_system, child_link.inverted) #Wyznaczanie transformacji do nowego układu
         current_link_id = child_link.id #Przypisanie danych nowego układu
         analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
+
+
 
 
 
@@ -276,11 +279,9 @@ def main_function():
     print('\n')
     all_links = make_data_consistent(base_link, other_links)
 
-    temp1,temp2 = find_childs(3)
-    temp3 = get_first_child_id(temp2)
-    change_status(2)
-    w = get_cLink(2)
-    x = get_cLink(3)
-    y = get_cLink(4)
+    start_id = get_base_link_id()
+    start_transformation = np.eye(4)
 
+
+    analyze_tree(start_id, start_transformation)
     pass
