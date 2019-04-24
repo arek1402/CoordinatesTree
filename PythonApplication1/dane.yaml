@@ -50,3 +50,16 @@ Link3:
   RotX: 14.0
   RotY: 15.0
   RotZ: 61.0
+Link4:
+ Name: "YYY"
+ ID: 4
+ Master_link: 3
+ Inverted: 1
+ Cords:
+  X: 7.0
+  Y: 8.0
+  Z: 9.0
+  Scalar: 10.5
+  RotX: 14.0
+  RotY: 15.0
+  RotZ: 61.0

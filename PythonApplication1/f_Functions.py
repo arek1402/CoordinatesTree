@@ -7,6 +7,14 @@ import numpy as np
 import pyquaternion as pq
 import yaml
 
+
+all_links = []
+current_transformation = np.eye(4)
+result_tab = []
+current_link_id = -1
+result_tab.append(1)
+
+
 #Parsowanie pliku YAML z danymi
 def read_yaml_file(path):
     with open(path, 'r') as stream:  
@@ -118,29 +126,31 @@ def save_result_to_yaml(path, data):
     with open(path, 'w') as outfile:
         yaml.dump(dictionary,outfile,default_flow_style =False)
 
+
 #Pobiera z listy układów cLink układ o zadanym ID
-def get_cLink(cLink_id, data):
+def get_cLink(cLink_id):
+    global all_links
     result = 0
-    for i in data:
+    for i in all_links:
         if i.id == cLink_id:
             result = i
-     
-    return result
+            return result
+    
 
 #Znajduje potomków układu o zadanym ID
-def find_childs(link_id, all_data):
+def find_childs(link_id):
+    global all_links
+    tab_of_childs = []
+    number_of_childs = 0 
 
-    result_tab = []
-    number_of_childs = 0
-
-    for i in all_data:
+    for i in all_links:
         if(i.master_id == link_id):
-            result_tab.append(i.id)
+            tab_of_childs.append(i.id)
             number_of_childs += 1
 
-    return number_of_childs, result_tab
+    return number_of_childs, tab_of_childs
 
-#Sprawdź czy potomkowie układu zostali już przetworzeni przez algorytm
+#Sprawdź czy potomkowie układu zostali już przetworzeni przez algorytm - True - tak, wszystkie układy sprawdzone, False - jeden lub kilka układów jest niesprawdzonych
 def check_childs_status(tab_of_childs, all_data):
     number_of_childs = len(tab_of_childs)
     number_of_checked = 0
@@ -155,21 +165,86 @@ def check_childs_status(tab_of_childs, all_data):
         return False
 
     #Zwraca pierwszy wolny identyfikator niesprawdzonego układu
-def get_first_child_id(tab_of_childs, all_data):
-    
+def get_first_child_id(tab_of_childs):
+
     for i in tab_of_childs:
-        temp = get_cLink(i, all_data)
+        temp = get_cLink(i)
         if(temp.checked == False):
-            return i
+            return temp.id
 
  #zmienia status układu na "Checked"
-def change_status(link_id, all_data):
+def change_status(link_id):
+    global all_links
 
     new_data = []
-    for i in all_data:
+    for i in all_links:
         if(i.id == link_id):
             i.checked = True
         new_data.append(i)
 
-     return new_data
+    all_links = new_data
 
+ #Sprawdza warunek koncowy pracy algorytmu przeszukiwania drzewa
+def check_end_condition(all_data):
+    number_of_checked = 0
+    for i in all_data:
+        if(i.checked == True):
+            number_of_checked += 1
+
+    if (number_of_checked == len(all_data)):
+        return True
+    else:
+        return False
+
+   #Główna funkcja analizująca drzewo
+def analyze_tree(link_id, link_transformation, all_data):
+
+    childs = [] #Tablica przechowujaca identyfikatory potomków danego układu
+    number_of_childs = [] #Liczba potomkow danego ukladu
+    childs_status = False #Flaga - informacja czy wszyscy potomkowie danego układu zostali już sprawdzeni
+  
+    if(check_end_condition(all_data) == True):  #Sprawdz warunek zakonczenia pracy algorytmu
+        return True
+
+    number_of_childs, childs = find_childs(link_id, all_data) #Wyszukuje potomków danego układu
+
+    if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
+        childs_status = check_childs_status(childs, all_data)
+
+    if(number_of_childs == 0 or childs_status == True): #Jesli dany uklad nie ma potomkow to zapisz aktualne przekształcenie do bazy wynikow
+       temp_result = c_Result()
+       temp_result.id = link_id
+       temp_result.transform = current_transformation
+       result_tab.append(temp_result)
+
+
+
+
+
+    if(number_of_childs == 0):
+        pass
+
+    else:
+        pass
+
+
+def main_function():
+    global all_links
+    global current_transformation
+    global result_tab
+    global current_link_id
+
+    data = read_yaml_file("dane.yaml")
+    base_link, other_links = agregate_parsed_data(data)
+    print(base_link.id)
+    print('\n')
+    all_links = make_data_consistent(base_link, other_links)
+
+    temp1,temp2 = find_childs(3)
+    temp3 = get_first_child_id(temp2)
+    change_status(2)
+    w = get_cLink(2)
+    x = get_cLink(3)
+    y = get_cLink(4)
+
+    pass
