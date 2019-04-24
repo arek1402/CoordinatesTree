@@ -1,7 +1,6 @@
 import numpy as np
 import pyquaternion as pq
 from c_Coordinates import *
-from c_Childs import *
 
 class c_Link(object):
 
@@ -15,7 +14,6 @@ class c_Link(object):
         self.rot_matrix = np.zeros([4,4])
         self.translation = np.zeros(3)
         self.coordinate_system = np.zeros([4,4])
-        self.childs = []
         self.checked = False
 
     # Przepisanie danych odczytanych z pliku do macierzy translacji
@@ -62,6 +60,7 @@ class c_Link(object):
         for i in range(len(self.rot_matrix)):
             for j in range(len(self.rot_matrix[i])):
                 self.rot_matrix[i][j] = self.rot_matrix[i][j] * 180.0 / np.pi
+
 
 
 

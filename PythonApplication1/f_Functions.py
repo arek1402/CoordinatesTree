@@ -1,6 +1,5 @@
 
 from c_Coordinates import *
-from c_Childs import *
 from c_Link import *
 from c_Result import *
 from f_FileFunctions import *
@@ -9,8 +8,8 @@ import numpy.linalg as nplg
 import pyquaternion as pq
 import yaml
 
-
 all_links = []
+result_links = []
 current_transformation = np.eye(4)
 result_tab = []
 current_link_id = -1
@@ -165,6 +164,42 @@ def analyze_tree(link_id, link_transformation):
         analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
 
 
+#Przekształca dane z formatu wynikowego do formatu wejściowego dla zapisu do pliku
+def organize_results_to_cLink(result_tab): 
+
+    organised_result = []
+
+    if(len(result_tab) > 0):
+
+        for i in result_tab:
+            old_cLink = get_cLink(i.id)
+            new_cLink = old_cLink
+            new_cLink.master_id = get_base_link_id()
+            new_cLink.coordinate_system = i.transform
+            organised_result.append(new_cLink)
+
+
+    return organised_result
+
+#Sortowanie tablicy z wynikami
+def bubble_sort_organised_results(org_res): 
+
+    i = 0
+    j = 0
+    k = len(org_res)
+    data = org_res
+    for i in range(k-1):
+        for j in range(k-1):
+            cLink1 = data[j]
+            cLink2 = data[j+1]
+            if(cLink1.id > cLink2.id):
+                data[j+1] = cLink1
+                data[j] = cLink2
+                
+    return data
+
+
+
 def main_function():
     global all_links
     global current_transformation
@@ -182,4 +217,6 @@ def main_function():
 
 
     analyze_tree(start_id, start_transformation)
+    new_tab = organize_results_to_cLink(result_tab)
+    new_tab2 = bubble_sort_organised_results(new_tab)
     pass

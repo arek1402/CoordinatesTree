@@ -20,9 +20,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="c_Childs.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="c_Coordinates.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,9 +33,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="f_Functions.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="f_ResultFunctions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonApplication1.py" />
