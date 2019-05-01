@@ -89,28 +89,10 @@ def record_injection(record):
     return ret_data
 
 
-def agregate_data_to_save(all_data):
-    ag_data = []
-    for i in all_data:
-        ol = record_injection(i)
-        ag_data.append(ol)
-
-    #print(ag_data)
-    return ag_data
-
-def prepare_data_to_save(all_data):
-
-   result = []
-
-   for i in all_data:
-       temp = c_Format()
-       temp.fill_the_fields(i)
-       result.append(temp)
-   return result
 
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
     for i in data:
-        yaml.dump(c_Format(i),stream)
-        print(yaml.dump(c_Format(i)))
+        yaml.dump(c_Format(id = i.id, name = i.name, master_id = i.master_id, inverted = i.inverted, location =[str(i.coordinates.x), str(i.coordinates.y), str(i.coordinates.z)], orientation = [str(i.coordinates.scalar), str(i.coordinates.rotx), str(i.coordinates.roty), str(i.coordinates.rotz)]),stream)
+        #print(yaml.dump(c_Format(i)))

@@ -178,7 +178,7 @@ def organize_results_to_cLink(result_tab):
             new_cLink.master_id = get_base_link_id()
             new_cLink.coordinate_system = i.transform
             new_cLink.get_quaternion_from_matrix()
-            new_cLink.get_translation_params()
+            new_cLink.round_floats(5)
             organised_result.append(new_cLink)
 
 

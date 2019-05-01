@@ -28,12 +28,6 @@ class c_Link(object):
         self.coordinate_system[2,3] = self.coordinates.z
         self.coordinate_system[3,3] = 1.0
 
-    # Pobiera informacje dotyczące translacji z przekształconego układu współrzednych
-    def get_translation_params(self):
-        self.coordinates.x = self.coordinate_system[0,3]
-        self.coordinates.y = self.coordinate_system[1,3] 
-        self.coordinates.z = self.coordinate_system[2,3] 
-
     #Generuje kwaternion opisujacy rotacje ukladu na podstawie danych odczytanych z pliku
     def get_quaternion_from_file(self):
         qt = pq.Quaternion(self.coordinates.scalar, self.coordinates.rotx, self.coordinates.roty, self.coordinates.rotz)
@@ -54,7 +48,13 @@ class c_Link(object):
                 if(i < 3) & (j < 3):
                     self.coordinate_system[i][j] = self.coordinate_system[i][j] * 180.0 / np.pi
 
-
-
-
+     # Zaokrągla dane liczbowe do zadanej liczby miejsc po przecinku
+    def round_floats(self, number_of_digits):
+        self.coordinates.x = round(self.coordinates.x,number_of_digits)
+        self.coordinates.y = round(self.coordinates.y,number_of_digits)
+        self.coordinates.z = round(self.coordinates.z,number_of_digits)
+        self.coordinates.scalar = round(self.coordinates.scalar,number_of_digits)
+        self.coordinates.rotx = round(self.coordinates.rotx,number_of_digits)
+        self.coordinates.roty = round(self.coordinates.roty,number_of_digits)
+        self.coordinates.rotz = round(self.coordinates.rotz,number_of_digits)
     
