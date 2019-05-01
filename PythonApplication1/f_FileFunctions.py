@@ -1,6 +1,7 @@
 from c_Coordinates import *
 from c_Link import *
 from c_Result import *
+from c_Format import *
 import numpy as np
 import numpy.linalg as nplg
 import pyquaternion as pq
@@ -72,7 +73,7 @@ def record_injection(record):
     link = record
     ret_data = {}
     cords_data = {}
-    cords_data['X'] = str(link.coordinates.x)
+    cords_data['X'] = str(link.coordinates.x, )
     cords_data['Y'] = str(link.coordinates.y)
     cords_data['Z'] = str(link.coordinates.z)
     cords_data['scalar'] = str(link.coordinates.scalar)
@@ -82,7 +83,7 @@ def record_injection(record):
     ret_data['Name'] = link.name
     ret_data['ID'] = str(link.id)
     ret_data['Master_link'] = str(0)
-    ret_data['Cords'] = str(cords_data)
+    #ret_data['Cords'] = str(cords_data)
 
 
     return ret_data
@@ -97,11 +98,22 @@ def agregate_data_to_save(all_data):
     #print(ag_data)
     return ag_data
 
+def prepare_data_to_save(all_data):
+
+   result = []
+
+   for i in all_data:
+       temp = c_Format()
+       temp.fill_the_fields(i)
+       result.append(temp)
+   return result
+
 def save_result_to_yaml(path, data):
     
     #dictionary = dict(data)
     #with open(path, 'w') as outfile:
     
     stream = open(path, "w")
-    yaml.dump(data,stream)
+    yaml.dump(c_Format(data),stream)
+   #yaml.dump_all(data,stream)
     print(yaml.dump(data))

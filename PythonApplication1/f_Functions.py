@@ -3,6 +3,7 @@ from c_Coordinates import *
 from c_Link import *
 from c_Result import *
 from f_FileFunctions import *
+from c_Format import *
 import numpy as np
 import numpy.linalg as nplg
 import pyquaternion as pq
@@ -219,6 +220,6 @@ def main_function():
 
     new_tab2 = bubble_sort_organised_results(new_tab)
 
-    result = agregate_data_to_save(new_tab2)
+    result = prepare_data_to_save(new_tab2)
     save_result_to_yaml('results.yaml',result)
     #print(result)

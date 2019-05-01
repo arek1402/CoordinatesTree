@@ -20,6 +20,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="c_Format.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="c_Coordinates.py">
       <SubType>Code</SubType>
     </Compile>
