@@ -110,10 +110,7 @@ def prepare_data_to_save(all_data):
 
 def save_result_to_yaml(path, data):
     
-    #dictionary = dict(data)
-    #with open(path, 'w') as outfile:
-    
     stream = open(path, "w")
-    yaml.dump(c_Format(data),stream)
-   #yaml.dump_all(data,stream)
-    print(yaml.dump(data))
+    for i in data:
+        yaml.dump(c_Format(i),stream)
+        print(yaml.dump(c_Format(i)))

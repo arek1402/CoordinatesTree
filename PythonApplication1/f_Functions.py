@@ -220,6 +220,6 @@ def main_function():
 
     new_tab2 = bubble_sort_organised_results(new_tab)
 
-    result = prepare_data_to_save(new_tab2)
-    save_result_to_yaml('results.yaml',result)
+    #result = prepare_data_to_save(new_tab2)
+    save_result_to_yaml('results.yaml',new_tab2)
     #print(result)

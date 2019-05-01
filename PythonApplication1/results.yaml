@@ -1,0 +1,70 @@
+!!python/object:c_Format.c_Format
+id: '0'
+inverted: '0'
+location: '[ 0.0 0.0 0.0]'
+master_id: '0'
+name: Base link
+orientation: '[ 1.0 0.0 0.0 0.0]'
+!!python/object:c_Format.c_Format
+id: '1'
+inverted: '0'
+location: '[ 0.5 0.5 0.0]'
+master_id: '0'
+name: Camera link
+orientation: '[ 0.9238766724085287 0.0 0.0 0.3826903371909772]'
+!!python/object:c_Format.c_Format
+id: '2'
+inverted: '0'
+location: '[ 0.14642018578061822 2.2677616680357637 0.9999999999999997]'
+master_id: '0'
+name: Tail link
+orientation: '[ 0.6830382971932065 0.18299694507543154 0.18301475496740988 0.682990777481426]'
+!!python/object:c_Format.c_Format
+id: '3'
+inverted: '0'
+location: '[ -0.20715962843876357 4.0355233360715275 0.9999999999999997]'
+master_id: '0'
+name: AHRS
+orientation: '[ 0.6983792172701324 -0.11060180563742389 0.11059212989972857 0.6984290159201149]'
+!!python/object:c_Format.c_Format
+id: '4'
+inverted: '0'
+location: '[ 2.244835833920921 7.267540423289163 -1.3661919123681971]'
+master_id: '0'
+name: Tail Cam
+orientation: '[ 0.24044217756327274 0.36877102931466543 0.45350021051801387 0.774940672727242]'
+!!python/object:c_Format.c_Format
+id: '5'
+inverted: '0'
+location: '[ -0.6087751013906622 4.367934765825916 4.091755656185137]'
+master_id: '0'
+name: Bottom Cam
+orientation: '[ 0.4397046262727161 0.8223512855901752 0.022262827756803383 0.3604199928178619]'
+!!python/object:c_Format.c_Format
+id: '6'
+inverted: '0'
+location: '[ -0.959647947260325 5.574213270942134 9.55726390465809]'
+master_id: '0'
+name: XYZ
+orientation: '[ -0.034623005301540034 0.9289475245137424 -0.3179240486871418 -0.18649944629959417]'
+!!python/object:c_Format.c_Format
+id: '7'
+inverted: '0'
+location: '[ 0.0 0.0 2.5]'
+master_id: '0'
+name: GPS
+orientation: '[ 0.9659288575556858 0.0 0.0 0.2588077319964918]'
+!!python/object:c_Format.c_Format
+id: '8'
+inverted: '0'
+location: '[ 0.2321350900716318 3.5980707747287903 6.5]'
+master_id: '0'
+name: AI
+orientation: '[ 0.8001293333906652 0.3313787570465369 0.19133426163064338 0.46192247136544295]'
+!!python/object:c_Format.c_Format
+id: '9'
+inverted: '0'
+location: '[ 1.3303072958609274 7.696121263245479 9.5]'
+master_id: '0'
+name: ML
+orientation: '[ 0.7500057691613792 0.2499970262075822 -0.43305685814509975 0.43296026460347187]'
