@@ -4,11 +4,11 @@ Link0:
  Master_link: -1
  Inverted: 0
  Cords:
-  X: 4.5
-  Y: 0.1
-  Z: 0.2
-  Scalar: 0.71
-  RotX: 1.0
+  X: 0.0
+  Y: 0.0
+  Z: 0.0
+  Scalar: 1.0
+  RotX: 0.0
   RotY: 0.0
   RotZ: 0.0
 Link1:
@@ -17,13 +17,13 @@ Link1:
  Master_link: 0
  Inverted: 0
  Cords:
-  X: 0.4
+  X: 0.5
   Y: 0.5
-  Z: 0.6
-  Scalar: 0.65
-  RotX: 0.7
-  RotY: 0.8
-  RotZ: 0.9
+  Z: 0.0
+  Scalar: 0.9239
+  RotX: 0.0
+  RotY: 0.0
+  RotZ: 0.3827
 Link2:
  Name: "Tail link"
  ID: 2
@@ -31,35 +31,100 @@ Link2:
  Inverted: 0
  Cords:
   X: 1.0
-  Y: 2.0
-  Z: 3.0
-  Scalar: 3.5
-  RotX: 4.0
-  RotY: 5.0
-  RotZ: 6.0
+  Y: 1.5
+  Z: 1.0
+  Scalar: 0.8924
+  RotX: 0.2391
+  RotY: 0.9905
+  RotZ: 0.3696
 Link3:
- Name: "XXX"
+ Name: "AHRS"
  ID: 3
  Master_link: 1
- Inverted: 1
+ Inverted: 0
  Cords:
-  X: 7.0
-  Y: 8.0
-  Z: 9.0
-  Scalar: 10.5
-  RotX: 14.0
-  RotY: 15.0
-  RotZ: 61.0
+  X: 2.0
+  Y: 3.0
+  Z: 1.0
+  Scalar: 0.9125
+  RotX: -0.05986
+  RotY: 0.1445
+  RotZ: 0.378
 Link4:
- Name: "YYY"
+ Name: "Tail Cam"
  ID: 4
- Master_link: 3
- Inverted: 1
+ Master_link: 2
+ Inverted: 0
  Cords:
-  X: 7.0
-  Y: 8.0
-  Z: 9.0
-  Scalar: 10.5
-  RotX: 14.0
-  RotY: 15.0
-  RotZ: 61.0
+  X: 1.0
+  Y: 1.5
+  Z: 1.0
+  Scalar: 0.5305
+  RotX: 0.4012
+  RotY: -0.06713
+  RotZ: 0.7437
+Link5:
+ Name: "Bottom Cam"
+ ID: 5
+ Master_link: 2
+ Inverted: 0
+ Cords:
+  X: 2.1
+  Y: 2.2
+  Z: 2.3
+  Scalar: 0.7011
+  RotX: 0.4305
+  RotY: -0.561
+  RotZ: 0.0923
+Link6:
+ Name: "XYZ"
+ ID: 6
+ Master_link: 5
+ Inverted: 0
+ Cords:
+  X: 3.3
+  Y: 3.4
+  Z: -3.0
+  Scalar: 0.6744
+  RotX: 0.3265
+  RotY: -0.6272
+  RotZ: 0.2126
+Link7:
+ Name: "GPS"
+ ID: 7
+ Master_link: 0
+ Inverted: 0
+ Cords:
+  X: 0.0
+  Y: 0.0
+  Z: 2.5
+  Scalar: 0.9659
+  RotX: 0.0
+  RotY: 0.0
+  RotZ: 0.2588
+Link8:
+ Name: "AI"
+ ID: 8
+ Master_link: 7
+ Inverted: 0
+ Cords:
+  X: 2.0
+  Y: 3.0
+  Z: 4.0
+  Scalar: 0.8924
+  RotX: 0.3696
+  RotY: 0.09905
+  RotZ: 0.2391
+Link9:
+ Name: "ML"
+ ID: 9
+ Master_link: 7
+ Inverted: 0
+ Cords:
+  X: 5.0
+  Y: 6.0
+  Z: 7.0
+  Scalar: 0.8365
+  RotX: 0.1294
+  RotY: -0.483
+  RotZ: 0.2241
