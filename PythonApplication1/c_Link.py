@@ -58,3 +58,10 @@ class c_Link(object):
         self.coordinates.roty = round(self.coordinates.roty,number_of_digits)
         self.coordinates.rotz = round(self.coordinates.rotz,number_of_digits)
     
+        #Przekształca pozycje lub orientacje do postaci listy na potrzeby zapisu do pliku
+    def return_list(self,option):
+        if(option == 1):
+            result = np.array([self.coordinates.x, self.coordinates.y, self.coordinates.z])
+        elif(option == 2):
+            result = np.array([self.coordinates.scalar, self.coordinates.rotx, self.coordinates.roty, self.coordinates.rotz])
+        return result.tolist()

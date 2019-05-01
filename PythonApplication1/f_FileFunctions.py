@@ -89,10 +89,11 @@ def record_injection(record):
     return ret_data
 
 
-
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
     for i in data:
-        yaml.dump(c_Format(id = i.id, name = i.name, master_id = i.master_id, inverted = i.inverted, location =[str(i.coordinates.x), str(i.coordinates.y), str(i.coordinates.z)], orientation = [str(i.coordinates.scalar), str(i.coordinates.rotx), str(i.coordinates.roty), str(i.coordinates.rotz)]),stream)
+        pos = i.return_list(1)
+        ori = i.return_list(2)
+        yaml.dump(c_Format(id = i.id, name = i.name, master_id = i.master_id, inverted = i.inverted, location = pos, orientation = ori),stream)
         #print(yaml.dump(c_Format(i)))
