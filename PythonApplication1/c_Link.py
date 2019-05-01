@@ -49,7 +49,7 @@ class c_Link(object):
 
     # Generuje kwaternion opisujący rotację układu w przestrzeni po wykonaniu przekształceń
     def get_quaternion(self):
-        qt = pq.Quaternion(self.coordinate_system)
+        qt = pq.Quaternion(matrix = self.coordinate_system)
         self.coordinates.scalar = qt.w
         self.coordinates.rotx = qt.x
         self.coordinates.roty = qt.y

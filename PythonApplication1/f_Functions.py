@@ -176,6 +176,8 @@ def organize_results_to_cLink(result_tab):
             new_cLink = old_cLink
             new_cLink.master_id = get_base_link_id()
             new_cLink.coordinate_system = i.transform
+            new_cLink.get_quaternion()
+            new_cLink.get_translation_params()
             organised_result.append(new_cLink)
 
 
@@ -224,7 +226,4 @@ def main_function():
 
     new_tab2 = bubble_sort_organised_results(new_tab)
 
-    for i in new_tab2:
-        #print(i.name, "\n", i.coordinate_system, "\n")
-        print(i.name,"\n \[",i.coordinates.scalar,",",i.coordinates.rotx,",",i.coordinates.roty,",",i.coordinates.rotz,"\] \n")
-    pass
+
