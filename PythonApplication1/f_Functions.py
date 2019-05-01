@@ -212,11 +212,19 @@ def main_function():
     print('\n')
     all_links = make_data_consistent(base_link, other_links)
 
+
+
+
     start_id = get_base_link_id()
     start_transformation = np.eye(4)
 
 
     analyze_tree(start_id, start_transformation)
     new_tab = organize_results_to_cLink(result_tab)
+
     new_tab2 = bubble_sort_organised_results(new_tab)
+
+    for i in new_tab2:
+        #print(i.name, "\n", i.coordinate_system, "\n")
+        print(i.name,"\n \[",i.coordinates.scalar,",",i.coordinates.rotx,",",i.coordinates.roty,",",i.coordinates.rotz,"\] \n")
     pass

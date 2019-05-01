@@ -35,7 +35,7 @@ Link2:
   Z: 1.0
   Scalar: 0.8924
   RotX: 0.2391
-  RotY: 0.9905
+  RotY: 0.09905
   RotZ: 0.3696
 Link3:
  Name: "AHRS"
@@ -56,13 +56,13 @@ Link4:
  Master_link: 2
  Inverted: 0
  Cords:
-  X: 1.0
-  Y: 1.5
-  Z: 1.0
-  Scalar: 0.5305
-  RotX: 0.4012
-  RotY: -0.06713
-  RotZ: 0.7437
+  X: 5.0
+  Y: -3.0
+  Z: -1.0
+  Scalar: 0.844
+  RotX: 0.3758
+  RotY: 0.1557
+  RotZ: 0.3496
 Link5:
  Name: "Bottom Cam"
  ID: 5
