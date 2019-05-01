@@ -176,7 +176,7 @@ def organize_results_to_cLink(result_tab):
             new_cLink = old_cLink
             new_cLink.master_id = get_base_link_id()
             new_cLink.coordinate_system = i.transform
-            new_cLink.get_quaternion()
+            new_cLink.get_quaternion_from_matrix()
             new_cLink.get_translation_params()
             organised_result.append(new_cLink)
 
@@ -209,21 +209,16 @@ def main_function():
     global current_link_id
 
     data = read_yaml_file("dane.yaml")
-    base_link, other_links = agregate_parsed_data(data)
-    print(base_link.id)
-    print('\n')
-    all_links = make_data_consistent(base_link, other_links)
-
-
-
+    all_links = agregate_parsed_data(data)
 
     start_id = get_base_link_id()
     start_transformation = np.eye(4)
-
 
     analyze_tree(start_id, start_transformation)
     new_tab = organize_results_to_cLink(result_tab)
 
     new_tab2 = bubble_sort_organised_results(new_tab)
 
-
+    result = agregate_data_to_save(new_tab2)
+    save_result_to_yaml('results.yaml',result)
+    #print(result)

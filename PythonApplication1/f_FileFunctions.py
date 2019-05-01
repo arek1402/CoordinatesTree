@@ -46,23 +46,18 @@ def agregate_parsed_data(data):
        header = generate_link_number(i)
        row = data[record]
        if i==0:
-            base_link = extract_data_from_record(row)
-            base_link.get_translation_matrix()
-            base_link.get_rotation_matrix()
-            base_link.rad2deg()
+            base_link = extract_data_from_record(row)           
             base_link.get_coordinate_system()
-            #print(base_link.coordinate_system)
+            #base_link.rad2deg()
        else:
-            #print(row)
-            other_link = extract_data_from_record(row)
-            other_link.get_translation_matrix()
-            other_link.get_rotation_matrix()
-            other_link.rad2deg()
+            other_link = extract_data_from_record(row)         
             other_link.get_coordinate_system()
+            #other_link.rad2deg()
             all_other_links.append(other_link)
        i = i+1
    
-   return base_link, all_other_links
+   final_input_data = make_data_consistent(base_link, all_other_links)
+   return final_input_data
 
 # Składa wszystkie układy do jednego wektora danych, gdzie układ bazowy jest na pierwszym miejscu
 def make_data_consistent(base_link, other_links):
@@ -77,29 +72,25 @@ def record_injection(record):
     link = record
     ret_data = {}
     cords_data = {}
-    cords_data['X'] = link.coordinates.x
-    cords_data['Y'] = link.coordinates.y
-    cords_data['Z'] = link.coordinates.z
-    cords_data['scalar'] = link.coordinates.scalar
-    cords_data['RotX'] = link.coordinates.rotx
-    cords_data['RotY'] = link.coordinates.roty
-    cords_data['RotZ'] = link.coordinates.rotz
+    cords_data['X'] = str(link.coordinates.x)
+    cords_data['Y'] = str(link.coordinates.y)
+    cords_data['Z'] = str(link.coordinates.z)
+    cords_data['scalar'] = str(link.coordinates.scalar)
+    cords_data['RotX'] = str(link.coordinates.rotx)
+    cords_data['RotY'] = str(link.coordinates.roty)
+    cords_data['RotZ'] = str(link.coordinates.rotz)
     ret_data['Name'] = link.name
-    ret_data['ID'] = link.id
-    ret_data['Master_link'] = 0
-    ret_data['Cords'] = cords_data
+    ret_data['ID'] = str(link.id)
+    ret_data['Master_link'] = str(0)
+    ret_data['Cords'] = str(cords_data)
 
 
     return ret_data
 
 
-def agregate_data_to_save(base_link, other_links):
+def agregate_data_to_save(all_data):
     ag_data = []
-    i = 0
-    bl = record_injection(base_link)
-    ag_data.append(bl)
-
-    for i in other_links:
+    for i in all_data:
         ol = record_injection(i)
         ag_data.append(ol)
 
@@ -108,6 +99,9 @@ def agregate_data_to_save(base_link, other_links):
 
 def save_result_to_yaml(path, data):
     
-    dictionary = dict(data)
-    with open(path, 'w') as outfile:
-        yaml.dump(dictionary,outfile,default_flow_style =False)
+    #dictionary = dict(data)
+    #with open(path, 'w') as outfile:
+    
+    stream = open(path, "w")
+    yaml.dump(data,stream)
+    print(yaml.dump(data))
