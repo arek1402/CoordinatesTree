@@ -1,6 +1,7 @@
 import numpy as np
 import pyquaternion as pq
-from c_Coordinates import *
+from c_Position import *
+from c_Orientation import *
 
 class c_Link(object):
 
@@ -10,7 +11,8 @@ class c_Link(object):
         self.id = -1
         self.master_id = 0
         self.inverted = 0
-        self.coordinates = c_Coordinates() #Zestaw danych wejsciowych w postaci lokazliacji punktu (X,Y,Z) i jego orientacji w formie kwaternionu
+        self.position = c_Position() #Zestaw danych wejsciowych w postaci lokazliacji punktu (X,Y,Z) i jego orientacji w formie kwaternionu
+        self.orientation = c_Orientation() #Zestaw danych wejsciowych w postaci jego orientacji w formie kwaternionu
         self.coordinate_system = np.zeros([4,4]) #Zawiera dane z pola coordinates przekształcone do postaci macierzowej
         self.checked = False                
 
@@ -23,23 +25,23 @@ class c_Link(object):
                if(i < 3) & (j < 3):
                    self.coordinate_system[i,j] = temp_matrix[i,j]
 
-        self.coordinate_system[0,3] = self.coordinates.x
-        self.coordinate_system[1,3] = self.coordinates.y
-        self.coordinate_system[2,3] = self.coordinates.z
+        self.coordinate_system[0,3] = self.position.x
+        self.coordinate_system[1,3] = self.position.y
+        self.coordinate_system[2,3] = self.position.z
         self.coordinate_system[3,3] = 1.0
 
     #Generuje kwaternion opisujacy rotacje ukladu na podstawie danych odczytanych z pliku
     def get_quaternion_from_file(self):
-        qt = pq.Quaternion(self.coordinates.scalar, self.coordinates.rotx, self.coordinates.roty, self.coordinates.rotz)
+        qt = pq.Quaternion(self.orientation.scalar, self.orientation.rotx, self.orientation.roty, self.orientation.rotz)
         return qt
 
     # Generuje kwaternion opisujący rotację układu w przestrzeni po wykonaniu przekształceń
     def get_quaternion_from_matrix(self):
         qt = pq.Quaternion(matrix = self.coordinate_system)
-        self.coordinates.scalar = qt.w
-        self.coordinates.rotx = qt.x
-        self.coordinates.roty = qt.y
-        self.coordinates.rotz = qt.z
+        self.orientation.scalar = qt.w
+        self.orientation.rotx = qt.x
+        self.orientation.roty = qt.y
+        self.orientation.rotz = qt.z
 
     # Konwersja z radianów na stopnie 
     def rad2deg(self):
@@ -50,18 +52,18 @@ class c_Link(object):
 
      # Zaokrągla dane liczbowe do zadanej liczby miejsc po przecinku
     def round_floats(self, number_of_digits):
-        self.coordinates.x = round(self.coordinates.x,number_of_digits)
-        self.coordinates.y = round(self.coordinates.y,number_of_digits)
-        self.coordinates.z = round(self.coordinates.z,number_of_digits)
-        self.coordinates.scalar = round(self.coordinates.scalar,number_of_digits)
-        self.coordinates.rotx = round(self.coordinates.rotx,number_of_digits)
-        self.coordinates.roty = round(self.coordinates.roty,number_of_digits)
-        self.coordinates.rotz = round(self.coordinates.rotz,number_of_digits)
+        self.position.x = round(self.position.x,number_of_digits)
+        self.position.y = round(self.position.y,number_of_digits)
+        self.position.z = round(self.position.z,number_of_digits)
+        self.orientation.scalar = round(self.orientation.scalar,number_of_digits)
+        self.orientation.rotx = round(self.orientation.rotx,number_of_digits)
+        self.orientation.roty = round(self.orientation.roty,number_of_digits)
+        self.orientation.rotz = round(self.coordinates.rotz,number_of_digits)
     
         #Przekształca pozycje lub orientacje do postaci listy na potrzeby zapisu do pliku
     def return_list(self,option):
         if(option == 1):
-            result = np.array([self.coordinates.x, self.coordinates.y, self.coordinates.z])
+            result = np.array([self.position.x, self.position.y, self.position.z])
         elif(option == 2):
-            result = np.array([self.coordinates.scalar, self.coordinates.rotx, self.coordinates.roty, self.coordinates.rotz])
+            result = np.array([self.orientation.scalar, self.orientation.rotx, self.orientation.roty, self.orientation.rotz])
         return result.tolist()

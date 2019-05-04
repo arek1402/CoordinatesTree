@@ -1,4 +1,5 @@
-from c_Coordinates import *
+from c_Position import *
+from c_Orientation import *
 from c_Link import *
 from c_Result import *
 from c_Record import *
@@ -20,15 +21,15 @@ def extract_data_from_record(record):
     link = c_Link()
     link.name = record['Name']
     link.id = record['ID']
-    link.master_id = record['Master_link']
+    link.master_id = record['Master_ID']
     link.inverted = record['Inverted']
-    link.coordinates.x = record['Cords']['X']
-    link.coordinates.y = record['Cords']['Y']
-    link.coordinates.z = record['Cords']['Z']
-    link.coordinates.scalar = record['Cords']['Scalar']
-    link.coordinates.rotx = record['Cords']['RotX']
-    link.coordinates.roty = record['Cords']['RotY']
-    link.coordinates.rotz = record['Cords']['RotZ']
+    link.position.x = record['Position']['X']
+    link.position.y = record['Position']['Y']
+    link.position.z = record['Position']['Z']
+    link.orientation.scalar = record['Orientation']['Scalar']
+    link.orientation.rotx = record['Orientation']['RotX']
+    link.orientation.roty = record['Orientation']['RotY']
+    link.orientation.rotz = record['Orientation']['RotZ']
 
     return link
 
@@ -49,11 +50,9 @@ def agregate_parsed_data(data):
        if i==0:
             base_link = extract_data_from_record(row)           
             base_link.get_coordinate_system()
-            #base_link.rad2deg()
        else:
             other_link = extract_data_from_record(row)         
             other_link.get_coordinate_system()
-            #other_link.rad2deg()
             all_other_links.append(other_link)
        i = i+1
    
@@ -72,11 +71,9 @@ def agregate_parsed_data2(data):
        if i==0:
             base_link = extract_data_from_record(row)           
             base_link.get_coordinate_system()
-            #base_link.rad2deg()
        else:
             other_link = extract_data_from_record(row)         
             other_link.get_coordinate_system()
-            #other_link.rad2deg()
             all_other_links.append(other_link)
        i = i+1
    
@@ -92,27 +89,6 @@ def make_data_consistent(base_link, other_links):
 
     return result
 
-def record_injection(record):
-    link = record
-    ret_data = {}
-    cords_data = {}
-    cords_data['X'] = str(link.coordinates.x, )
-    cords_data['Y'] = str(link.coordinates.y)
-    cords_data['Z'] = str(link.coordinates.z)
-    cords_data['scalar'] = str(link.coordinates.scalar)
-    cords_data['RotX'] = str(link.coordinates.rotx)
-    cords_data['RotY'] = str(link.coordinates.roty)
-    cords_data['RotZ'] = str(link.coordinates.rotz)
-    ret_data['Name'] = link.name
-    ret_data['ID'] = str(link.id)
-    ret_data['Master_link'] = str(0)
-    #ret_data['Cords'] = str(cords_data)
-
-
-    return ret_data
-
-
-
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
@@ -121,5 +97,5 @@ def save_result_to_yaml(path, data):
         record = c_Record()
         record.prepare_data_to_save(i)
         rec_data = record.generate_record_to_save()
-        yaml.dump(rec_data, stream)
+        yaml.dump(rec_data, stream,default_flow_style=False, sort_keys=False )
         #yaml.dump(record2, stream)

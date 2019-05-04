@@ -1,40 +1,140 @@
-Position:
-  X: 0.0
-  Y: 0.0
-  Z: 0.0
-Position:
-  X: 0.5
-  Y: 0.5
-  Z: 0.0
-Position:
-  X: 1.0
-  Y: 1.5
-  Z: 1.0
-Position:
-  X: 2.0
-  Y: 3.0
-  Z: 1.0
-Position:
-  X: 5.0
-  Y: -3.0
-  Z: -1.0
-Position:
-  X: 2.1
-  Y: 2.2
-  Z: 2.3
-Position:
-  X: 3.3
-  Y: 3.4
-  Z: -3.0
-Position:
-  X: 0.0
-  Y: 0.0
-  Z: 2.5
-Position:
-  X: 2.0
-  Y: 3.0
-  Z: 4.0
-Position:
-  X: 5.0
-  Y: 6.0
-  Z: 7.0
+Link:
+  ID: 0
+  Name: Base link
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 0.0
+    Y: 0.0
+    Z: 0.0
+  Orientation:
+    Scalar: '1.0'
+    X: '0.0'
+    Y: '0.0'
+    Z: '0.0'
+Link:
+  ID: 1
+  Name: Camera link
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 0.5
+    Y: 0.5
+    Z: 0.0
+  Orientation:
+    Scalar: '0.92388'
+    X: '0.0'
+    Y: '0.0'
+    Z: '0.38269'
+Link:
+  ID: 2
+  Name: Tail link
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 1.0
+    Y: 1.5
+    Z: 1.0
+  Orientation:
+    Scalar: '0.68304'
+    X: '0.183'
+    Y: '0.18301'
+    Z: '0.68299'
+Link:
+  ID: 3
+  Name: AHRS
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 2.0
+    Y: 3.0
+    Z: 1.0
+  Orientation:
+    Scalar: '0.69838'
+    X: '-0.1106'
+    Y: '0.11059'
+    Z: '0.69843'
+Link:
+  ID: 4
+  Name: Tail Cam
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 5.0
+    Y: -3.0
+    Z: -1.0
+  Orientation:
+    Scalar: '0.24044'
+    X: '0.36877'
+    Y: '0.4535'
+    Z: '0.77494'
+Link:
+  ID: 5
+  Name: Bottom Cam
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 2.1
+    Y: 2.2
+    Z: 2.3
+  Orientation:
+    Scalar: '0.4397'
+    X: '0.82235'
+    Y: '0.02226'
+    Z: '0.36042'
+Link:
+  ID: 6
+  Name: XYZ
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 3.3
+    Y: 3.4
+    Z: -3.0
+  Orientation:
+    Scalar: '-0.03462'
+    X: '0.92895'
+    Y: '-0.31792'
+    Z: '-0.1865'
+Link:
+  ID: 7
+  Name: GPS
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 0.0
+    Y: 0.0
+    Z: 2.5
+  Orientation:
+    Scalar: '0.96593'
+    X: '0.0'
+    Y: '0.0'
+    Z: '0.25881'
+Link:
+  ID: 8
+  Name: AI
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 2.0
+    Y: 3.0
+    Z: 4.0
+  Orientation:
+    Scalar: '0.80013'
+    X: '0.33138'
+    Y: '0.19133'
+    Z: '0.46192'
+Link:
+  ID: 9
+  Name: ML
+  Master_ID: 0
+  Inverted: 0
+  Position:
+    X: 5.0
+    Y: 6.0
+    Z: 7.0
+  Orientation:
+    Scalar: '0.75001'
+    X: '0.25'
+    Y: '-0.43306'
+    Z: '0.43296'

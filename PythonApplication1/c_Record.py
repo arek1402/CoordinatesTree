@@ -16,7 +16,7 @@ class c_Record(object):
         self.master_id = data.master_id
         self.inverted = data.inverted
         self.position = {'X': data.coordinates.x, 'Y': data.coordinates.y, 'Z': data.coordinates.z}
-        self.orientation = {'Scalar': str(data.coordinates.scalar), 'X': str(data.coordinates.rotx), 'Y': str(data.coordinates.roty), 'Z': str(data.coordinates.rotz)}
+        self.orientation = {'Scalar': str(data.coordinates.scalar), 'RotX': str(data.coordinates.rotx), 'RotY': str(data.coordinates.roty), 'RotZ': str(data.coordinates.rotz)}
     
     def generate_record_to_save(self):
         record = {'Link': {'ID': self.id, 'Name': self.name, 'Master_ID': self.master_id, 'Inverted': self.inverted, 'Position': self.position, 'Orientation': self.orientation}}

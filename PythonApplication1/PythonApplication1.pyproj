@@ -20,10 +20,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="c_Coordinates.py">
+    <Compile Include="c_Link.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="c_Link.py">
+    <Compile Include="c_Orientation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="c_Position.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="c_Record.py">
