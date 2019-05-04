@@ -17,13 +17,6 @@ result_tab = []
 current_link_id = -1
 
 
-# Konwersja ze stopni na radiany
-def deg2rad(number_in_degrees):
-    return number_in_degrees * np.pi / 180.0
-# Konwersja z radianów na stopnie
-def rad2deg(number_in_radians):
-    return number_in_radians * 180.0 / np.pi
-
 #Pobiera z listy układów cLink układ o zadanym ID
 def get_cLink(cLink_id):
     global all_links
@@ -224,3 +217,59 @@ def main_function():
     #result = prepare_data_to_save(new_tab2)
     save_result_to_yaml('results.yaml',new_tab2)
     #print(result)
+    
+def main_program():
+
+    global all_links
+    global current_transformation
+    global result_tab
+    global current_link_id
+
+    state_number = 0
+
+    print('Witaj w aplikacji CoordinatesTree. Aby rozpocząć pracę wskaż lokalizację pliku źródłowego YAML podając jego BEZWZGLĘDNĄ ścieżkę.')
+    state_number = 1
+    source_file_path = ''
+    dest_file_path = ''
+
+    try:
+        while(1):
+            if(state_number == 1):
+                source_file_path = input('Lokalizacja: ')
+                state_number = 2
+
+            if(state_number == 2):
+                path_ok = check_file_path()
+                if(path_ok == True):
+                    exist = check_that_file_exists(source_file_path)
+                    if(exist):
+                        state_number = 3
+                    else:
+                        print('Plik o podanej ścieżce nie istnieje. Wprowadz sciezke ponownie. \n')
+                        state_number = 1
+                else:
+                    print('Wprowadzona ścieżka do pliku ma nieprawidłowy format. Wprowadz ją ponownie zwracając uwagę na rozszerzenie. \n')
+                    state_number = 1
+
+            if(state_number == 3):
+                print('Odczytywanie danych... \n')
+                try:
+                    data = read_yaml_file(source_file_path)
+                    all_links = agregate_parsed_data(data)
+                    state_number = 4
+                except:
+                    print('Bład odczytu danych. Sprawdź zawartość pliku źródłowego i spróbuj ponownie. \n')
+                    state_number = -1
+
+            if(state_number == 4):
+                print('Wprowadź lokalizację pliku docelowego \n')
+                dest_file_path = input('Lokalizacja:')
+                state_number = 5
+
+            if(state_number == 5):
+                #Sprawdz poprawnosc sciezki docelowej
+                pass
+
+
+
+
