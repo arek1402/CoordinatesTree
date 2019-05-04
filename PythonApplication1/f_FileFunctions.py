@@ -1,7 +1,7 @@
 from c_Coordinates import *
 from c_Link import *
 from c_Result import *
-from c_Format import *
+from c_Record import *
 import numpy as np
 import numpy.linalg as nplg
 import pyquaternion as pq
@@ -60,6 +60,29 @@ def agregate_parsed_data(data):
    final_input_data = make_data_consistent(base_link, all_other_links)
    return final_input_data
 
+def agregate_parsed_data2(data):
+   base_link = c_Link()
+   other_link = c_Link()
+   all_other_links = []
+   i = 0
+   
+   for record in data:
+       header = generate_link_number(i)
+       row = data[record]
+       if i==0:
+            base_link = extract_data_from_record(row)           
+            base_link.get_coordinate_system()
+            #base_link.rad2deg()
+       else:
+            other_link = extract_data_from_record(row)         
+            other_link.get_coordinate_system()
+            #other_link.rad2deg()
+            all_other_links.append(other_link)
+       i = i+1
+   
+   final_input_data = make_data_consistent(base_link, all_other_links)
+   return final_input_data
+
 # Składa wszystkie układy do jednego wektora danych, gdzie układ bazowy jest na pierwszym miejscu
 def make_data_consistent(base_link, other_links):
     result = []
@@ -89,11 +112,14 @@ def record_injection(record):
     return ret_data
 
 
+
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
+    
     for i in data:
-        pos = i.return_list(1)
-        ori = i.return_list(2)
-        yaml.dump(c_Format(id = i.id, name = i.name, master_id = i.master_id, inverted = i.inverted, location = pos, orientation = ori),stream)
-        #print(yaml.dump(c_Format(i)))
+        record = c_Record()
+        record.prepare_data_to_save(i)
+        rec_data = record.generate_record_to_save()
+        yaml.dump(rec_data, stream)
+        #yaml.dump(record2, stream)
