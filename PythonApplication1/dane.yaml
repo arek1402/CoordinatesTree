@@ -1,12 +1,13 @@
 Link0:
  Name: "Base link"
  ID: 0
- Master_link: -1
+ Master_ID: -1
  Inverted: 0
- Cords:
+ Position:
   X: 0.0
   Y: 0.0
   Z: 0.0
+ Orientation:
   Scalar: 1.0
   RotX: 0.0
   RotY: 0.0
@@ -14,12 +15,13 @@ Link0:
 Link1:
  Name: "Camera link"
  ID: 1
- Master_link: 0
+ Master_ID: 0
  Inverted: 0
- Cords:
+ Position:
   X: 0.5
   Y: 0.5
   Z: 0.0
+ Orientation:
   Scalar: 0.9239
   RotX: 0.0
   RotY: 0.0
@@ -27,12 +29,13 @@ Link1:
 Link2:
  Name: "Tail link"
  ID: 2
- Master_link: 1
+ Master_ID: 1
  Inverted: 0
- Cords:
+ Position:
   X: 1.0
   Y: 1.5
   Z: 1.0
+ Orientation:
   Scalar: 0.8924
   RotX: 0.2391
   RotY: 0.09905
@@ -40,12 +43,13 @@ Link2:
 Link3:
  Name: "AHRS"
  ID: 3
- Master_link: 1
+ Master_ID: 1
  Inverted: 0
- Cords:
+ Position:
   X: 2.0
   Y: 3.0
   Z: 1.0
+ Orientation:
   Scalar: 0.9125
   RotX: -0.05986
   RotY: 0.1445
@@ -53,12 +57,13 @@ Link3:
 Link4:
  Name: "Tail Cam"
  ID: 4
- Master_link: 2
+ Master_ID: 2
  Inverted: 0
- Cords:
+ Position:
   X: 5.0
   Y: -3.0
   Z: -1.0
+ Orientation:
   Scalar: 0.844
   RotX: 0.3758
   RotY: 0.1557
@@ -66,12 +71,13 @@ Link4:
 Link5:
  Name: "Bottom Cam"
  ID: 5
- Master_link: 2
+ Master_ID: 2
  Inverted: 0
- Cords:
+ Position:
   X: 2.1
   Y: 2.2
   Z: 2.3
+ Orientation:
   Scalar: 0.7011
   RotX: 0.4305
   RotY: -0.561
@@ -79,12 +85,13 @@ Link5:
 Link6:
  Name: "XYZ"
  ID: 6
- Master_link: 5
+ Master_ID: 5
  Inverted: 0
- Cords:
+ Position:
   X: 3.3
   Y: 3.4
   Z: -3.0
+ Orientation:
   Scalar: 0.6744
   RotX: 0.3265
   RotY: -0.6272
@@ -92,12 +99,13 @@ Link6:
 Link7:
  Name: "GPS"
  ID: 7
- Master_link: 0
+ Master_ID: 0
  Inverted: 0
- Cords:
+ Position:
   X: 0.0
   Y: 0.0
   Z: 2.5
+ Orientation:
   Scalar: 0.9659
   RotX: 0.0
   RotY: 0.0
@@ -105,12 +113,13 @@ Link7:
 Link8:
  Name: "AI"
  ID: 8
- Master_link: 7
+ Master_ID: 7
  Inverted: 0
- Cords:
+ Position:
   X: 2.0
   Y: 3.0
   Z: 4.0
+ Orientation:
   Scalar: 0.8924
   RotX: 0.3696
   RotY: 0.09905
@@ -118,12 +127,13 @@ Link8:
 Link9:
  Name: "ML"
  ID: 9
- Master_link: 7
+ Master_ID: 7
  Inverted: 0
- Cords:
+ Position:
   X: 5.0
   Y: 6.0
   Z: 7.0
+ Orientation:
   Scalar: 0.8365
   RotX: 0.1294
   RotY: -0.483

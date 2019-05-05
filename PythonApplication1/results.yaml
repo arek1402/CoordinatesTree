@@ -4,9 +4,9 @@ Link:
   Master_ID: 0
   Inverted: 0
   Position:
-    X: 0.0
-    Y: 0.0
-    Z: 0.0
+    X: '0.0'
+    Y: '0.0'
+    Z: '0.0'
   Orientation:
     Scalar: '1.0'
     X: '0.0'
@@ -18,28 +18,28 @@ Link:
   Master_ID: 0
   Inverted: 0
   Position:
-    X: 0.5
-    Y: 0.5
-    Z: 0.0
+    X: '0.5'
+    Y: '0.5'
+    Z: '0.0'
   Orientation:
-    Scalar: '0.92388'
+    Scalar: '0.9239'
     X: '0.0'
     Y: '0.0'
-    Z: '0.38269'
+    Z: '0.3827'
 Link:
   ID: 2
   Name: Tail link
-  Master_ID: 0
+  Master_ID: 1
   Inverted: 0
   Position:
-    X: 1.0
-    Y: 1.5
-    Z: 1.0
+    X: '1.0'
+    Y: '1.5'
+    Z: '1.0'
   Orientation:
-    Scalar: '0.68304'
-    X: '0.183'
-    Y: '0.18301'
-    Z: '0.68299'
+    Scalar: '0.8924'
+    X: '0.2391'
+    Y: '0.09905'
+    Z: '0.3696'
 Link:
   ID: 3
   Name: AHRS

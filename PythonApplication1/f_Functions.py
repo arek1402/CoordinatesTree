@@ -172,6 +172,7 @@ def organize_results_to_cLink(result_tab):
             new_cLink.master_id = get_base_link_id()
             new_cLink.coordinate_system = i.transform
             new_cLink.get_quaternion_from_matrix()
+            new_cLink.get_translation_from_matrix()
             new_cLink.round_floats(5)
             organised_result.append(new_cLink)
 
@@ -195,28 +196,6 @@ def bubble_sort_organised_results(org_res):
                 
     return data
 
-
-
-def main_function():
-    global all_links
-    global current_transformation
-    global result_tab
-    global current_link_id
-
-    data = read_yaml_file("results.yaml")
-    all_links = agregate_parsed_data(data)
-
-    start_id = get_base_link_id()
-    start_transformation = np.eye(4)
-
-    analyze_tree(start_id, start_transformation)
-    new_tab = organize_results_to_cLink(result_tab)
-
-    new_tab2 = bubble_sort_organised_results(new_tab)
-
-    #result = prepare_data_to_save(new_tab2)
-    save_result_to_yaml('results.yaml',new_tab2)
-    #print(result)
     
 def main_program():
 
@@ -290,11 +269,11 @@ def main_program():
                 analyze_tree(start_id, start_transformation)
                 new_tab = organize_results_to_cLink(result_tab)
                 new_tab2 = bubble_sort_organised_results(new_tab)
-                all_links = new_tab2
+                #result_tab = new_tab2
                 state_number = 8
 
             if(state_number == 8): #Zapis wyników działania algorytmu do pliku
-                save_result_to_yaml(dest_file_path,all_links)
+                save_result_to_yaml(dest_file_path,new_tab2)
                 print('Dane zostały zapisane do pliku ', dest_file_path, '. Program zakończy teraz działanie. \n')
                 state_number = 9
 

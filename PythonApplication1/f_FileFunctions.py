@@ -49,9 +49,9 @@ def check_that_file_exists(path):
 def extract_data_from_record(record): 
     link = c_Link()
     link.name = record['Name']
-    link.id = float(record['ID'])
-    link.master_id = float(record['Master_ID'])
-    link.inverted = float(record['Inverted'])
+    link.id = int(record['ID'])
+    link.master_id = int(record['Master_ID'])
+    link.inverted = int(record['Inverted'])
     link.position.x = float(record['Position']['X'])
     link.position.y = float(record['Position']['Y'])
     link.position.z = float(record['Position']['Z'])
@@ -129,5 +129,5 @@ def save_result_to_yaml(path, data):
     for i in data:
         record = c_Record()
         record.prepare_data_to_save(i)
-        rec_data = record.generate_record_to_save()
+        rec_data = record.generate_record_to_save(i.id)
         yaml.dump(rec_data, stream,default_flow_style=False, sort_keys=False )

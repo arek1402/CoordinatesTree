@@ -35,6 +35,12 @@ class c_Link(object):
         qt = pq.Quaternion(self.orientation.scalar, self.orientation.rotx, self.orientation.roty, self.orientation.rotz)
         return qt
 
+    #Wyciąga położenie układu z macierzy przekształceń
+    def get_translation_from_matrix(self):
+        self.position.x = self.coordinate_system[0,3]
+        self.position.y = self.coordinate_system[1,3]
+        self.position.z = self.coordinate_system[2,3]
+
     # Generuje kwaternion opisujący rotację układu w przestrzeni po wykonaniu przekształceń
     def get_quaternion_from_matrix(self):
         qt = pq.Quaternion(matrix = self.coordinate_system)
@@ -58,7 +64,7 @@ class c_Link(object):
         self.orientation.scalar = round(self.orientation.scalar,number_of_digits)
         self.orientation.rotx = round(self.orientation.rotx,number_of_digits)
         self.orientation.roty = round(self.orientation.roty,number_of_digits)
-        self.orientation.rotz = round(self.coordinates.rotz,number_of_digits)
+        self.orientation.rotz = round(self.orientation.rotz,number_of_digits)
     
         #Przekształca pozycje lub orientacje do postaci listy na potrzeby zapisu do pliku
     def return_list(self,option):
