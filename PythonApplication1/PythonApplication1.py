@@ -7,4 +7,4 @@ from c_Link import *
 from f_Functions import *
 from c_Result import*
 
-main_function()
+main_program()

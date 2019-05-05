@@ -227,19 +227,19 @@ def main_program():
 
     state_number = 0
 
-    print('Witaj w aplikacji CoordinatesTree. Aby rozpocząć pracę wskaż lokalizację pliku źródłowego YAML podając jego BEZWZGLĘDNĄ ścieżkę.')
+    print('Witaj w aplikacji CoordinatesTree. Aby rozpocząć pracę wskaż lokalizację pliku źródłowego YAML.\n')
     state_number = 1
     source_file_path = ''
     dest_file_path = ''
-
+    loop_start = True
     try:
-        while(1):
-            if(state_number == 1):
+        while(loop_start):
+            if(state_number == 1): #Lokalizacja pliku źródłowego
                 source_file_path = input('Lokalizacja: ')
                 state_number = 2
 
-            if(state_number == 2):
-                path_ok = check_file_path()
+            if(state_number == 2): # Sprawdzanie wprowadzonej ścieżki do pliku źródłowego
+                path_ok = check_file_path(source_file_path)
                 if(path_ok == True):
                     exist = check_that_file_exists(source_file_path)
                     if(exist):
@@ -251,25 +251,60 @@ def main_program():
                     print('Wprowadzona ścieżka do pliku ma nieprawidłowy format. Wprowadz ją ponownie zwracając uwagę na rozszerzenie. \n')
                     state_number = 1
 
-            if(state_number == 3):
+            if(state_number == 3): #Parsowanie pliku YAML
                 print('Odczytywanie danych... \n')
-                try:
-                    data = read_yaml_file(source_file_path)
-                    all_links = agregate_parsed_data(data)
-                    state_number = 4
-                except:
-                    print('Bład odczytu danych. Sprawdź zawartość pliku źródłowego i spróbuj ponownie. \n')
-                    state_number = -1
+                data = read_yaml_file(source_file_path)
+                all_links = agregate_parsed_data(data)
+                state_number = 4
 
-            if(state_number == 4):
+            if(state_number == 4): #Sprawdzanie poprawności danych odczytanych
+                master_check = check_master_link_id(all_links)
+                id_check = check_multiple_id(all_links)
+
+                if(master_check == True and id_check == True):
+                    state_number = 5
+                elif(master_check == False):
+                    print('W pliku źródłowym znajdują się dwa układy współrzędnych o charakterze układu głównego (pole Master_ID = -1). Dozwolony jest tylko jeden taki układ.\n')
+                    state_number = 9
+                elif(id_check == False):
+                    print('W pliku źródłowym znajdują się przynajmniej dwa układy o takim samym ID. Każdy układ musi mieć unikatowe ID.\n')
+                    state_number = 9
+
+
+            if(state_number == 5): #Zapytanie o ścieżkę do pliku docelowego
                 print('Wprowadź lokalizację pliku docelowego \n')
                 dest_file_path = input('Lokalizacja:')
-                state_number = 5
+                state_number = 6
 
-            if(state_number == 5):
-                #Sprawdz poprawnosc sciezki docelowej
-                pass
+            if(state_number == 6): # Sprawdzenie ścieżki do pliku docelowego
+                path_ok = check_file_path(dest_file_path)
+                if(path_ok == True):
+                    state_number = 7
+                else:
+                    print('Wprowadzona ścieżka pliku docelowego jest nieprawidłowa. Wprowadź ją ponownie. \n')
+                    state_number = 5
+            
+            if(state_number == 7): #Analiza drzewa układów współrzędnych
+                start_id = get_base_link_id()
+                start_transformation = np.eye(4)
+                analyze_tree(start_id, start_transformation)
+                new_tab = organize_results_to_cLink(result_tab)
+                new_tab2 = bubble_sort_organised_results(new_tab)
+                all_links = new_tab2
+                state_number = 8
 
+            if(state_number == 8): #Zapis wyników działania algorytmu do pliku
+                save_result_to_yaml(dest_file_path,all_links)
+                print('Dane zostały zapisane do pliku ', dest_file_path, '. Program zakończy teraz działanie. \n')
+                state_number = 9
+
+            if(state_number == 9):
+                loop_start = False
+        a = input()   
+
+
+    except:
+        pass
 
 
 

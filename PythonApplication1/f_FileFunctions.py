@@ -19,19 +19,21 @@ def read_yaml_file(path):
 #Pobiera ostatnie 5 znaków z podanej ścieżki
 def get_file_extension(path):
     length = len(path)
-    result = path[(length)-5:lenght]
+    result = path[((length)-5):]
     return result
 
 #Sprawdza czy wprowadzona ściezka nie zawiera błędów"
 def check_file_path(path):
+    print(len(path))
     if(len(path) == 0):
         print('Nie wprowadzono ścieżki do pliku. \n')
         return False
-    elif(path[1] != ':' or path[2] != '\\' ):
-        print('Wprowadzono niepoprawny format ścieżki dostępu do pliku źródłowego \n')
+    elif(len(path) > 5):
+        ext = get_file_extension(path)
+        if(ext == ".yaml" or ext == ".YAML"):
+            return True
+    else:
         return False
-    elif(len(path) > 5 and (get_file_extension(path) == ".YAML" or get_file_extension == ".yaml")):
-        return True
 
 #Sprawdza czy plik w podanej lokalizacji znajduje sie na dysku
 
@@ -91,6 +93,35 @@ def make_data_consistent(base_link, other_links):
 
     return result
 
+#Sprawdza czy wczytane dane mają tylko jeden układ główny (pole master_id = -1)
+def check_master_link_id(data):
+    number_of_roots = 0
+    for i in data:
+        if(i.master_id == -1):
+            number_of_roots += 1
+    if(number_of_roots == 1):
+        return True
+    else:
+        return False
+
+#Sprawdza czy dane ID nie powtarza sie w danych wejściowych dla dwóch różnych układów
+def check_multiple_id(data):
+    current_id = -1
+    number_of_current_id = 0
+
+    for i in data:
+        current_id = i.id
+        number_of_current_id = 0
+        for j in data:
+            if(current_id == j.id):
+                number_of_current_id += 1
+        
+        if(number_of_current_id > 1):
+            return False
+
+    return True
+
+
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
@@ -100,4 +131,3 @@ def save_result_to_yaml(path, data):
         record.prepare_data_to_save(i)
         rec_data = record.generate_record_to_save()
         yaml.dump(rec_data, stream,default_flow_style=False, sort_keys=False )
-        #yaml.dump(record2, stream)
