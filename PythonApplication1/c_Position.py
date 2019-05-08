@@ -5,5 +5,11 @@ class c_Position(object):
         self.y = 0.0
         self.z = 0.0
 
+    def assingn_data(self,data):
+        self.x = data[0]
+        self.y = data[1]
+        self.z = data[2]
+
+
 
 

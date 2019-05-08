@@ -9,4 +9,9 @@ from f_Functions import *
 from c_Result import*
 
 
-main_program(sys.argv)
+
+arguments = []
+arguments.append("")
+arguments.append("dane - nowe.yaml")
+arguments.append("test3.yaml")
+main_program(arguments)

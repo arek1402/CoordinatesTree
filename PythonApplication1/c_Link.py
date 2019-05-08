@@ -15,6 +15,10 @@ class c_Link(object):
         self.orientation = c_Orientation() #Zestaw danych wejsciowych w postaci jego orientacji w formie kwaternionu
         self.coordinate_system = np.zeros([4,4]) #Zawiera dane z pola coordinates przekształcone do postaci macierzowej
         self.checked = False                
+    
+    # Nadawanie nowego ID
+    def set_id(self, new_id):
+        self.id = new_id
 
     # Złożenie macierzy translacji i rotacji w jedną macierz definiującą dany układ współrzednych
     def get_coordinate_system(self):

@@ -1,0 +1,300 @@
+Link0:
+  ID: '0'
+  Name: Base link
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '0.0'
+    Y: '0.0'
+    Z: '0.0'
+  Orientation:
+    Scalar: '1.0'
+    RotX: '0.0'
+    RotY: '0.0'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      AAAAAAAAAAA=
+Link1:
+  ID: '1'
+  Name: Camera link
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '0.5'
+    Y: '0.5'
+    Z: '0.0'
+  Orientation:
+    Scalar: '0.92388'
+    RotX: '0.0'
+    RotY: '0.0'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      PGagMv592D8=
+Link2:
+  ID: '2'
+  Name: Tail link
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '0.14642'
+    Y: '2.26776'
+    Z: '1.0'
+  Orientation:
+    Scalar: '0.68304'
+    RotX: '0.183'
+    RotY: '0.18301'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      Xtcv2A3b5T8=
+Link3:
+  ID: '3'
+  Name: AHRS
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '-0.20716'
+    Y: '4.03552'
+    Z: '1.0'
+  Orientation:
+    Scalar: '0.69838'
+    RotX: '-0.1106'
+    RotY: '0.11059'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      73IR34lZ5j8=
+Link4:
+  ID: '4'
+  Name: Tail Cam
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '2.24484'
+    Y: '7.26754'
+    Z: '-1.36619'
+  Orientation:
+    Scalar: '0.24044'
+    RotX: '0.36877'
+    RotY: '0.4535'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      eJeL+E7M6D8=
+Link5:
+  ID: '5'
+  Name: Bottom Cam
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '-0.60878'
+    Y: '4.36793'
+    Z: '4.09176'
+  Orientation:
+    Scalar: '0.4397'
+    RotX: '0.82235'
+    RotY: '0.02226'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      qcE0DB8R1z8=
+Link6:
+  ID: '6'
+  Name: XYZ
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '-0.95965'
+    Y: '5.57421'
+    Z: '9.55726'
+  Orientation:
+    Scalar: '-0.03462'
+    RotX: '0.92895'
+    RotY: '-0.31792'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      rBxaZDvfx78=
+Link7:
+  ID: '7'
+  Name: GPS
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '0.0'
+    Y: '0.0'
+    Z: '2.5'
+  Orientation:
+    Scalar: '0.96593'
+    RotX: '0.0'
+    RotY: '0.0'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      OC140VeQ0D8=
+Link8:
+  ID: '8'
+  Name: AI
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '0.23214'
+    Y: '3.59807'
+    Z: '6.5'
+  Orientation:
+    Scalar: '0.80013'
+    RotX: '0.33138'
+    RotY: '0.19133'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      jpJX5xiQ3T8=
+Link9:
+  ID: '9'
+  Name: ML
+  Master_ID: '0'
+  Inverted: '0'
+  Position:
+    X: '1.33031'
+    Y: '7.69612'
+    Z: '9.5'
+  Orientation:
+    Scalar: '0.75001'
+    RotX: '0.25'
+    RotY: '-0.43306'
+    RotZ: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      aHke3J212z8=

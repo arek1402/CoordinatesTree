@@ -13,12 +13,12 @@ class c_Record(object):
 
         #Tworzy zagnieżdzone listy zgodne z formatem YAML
     def prepare_data_to_save(self,data):
-        self.id = str(data.id)
+        self.id = int(data.id)
         self.name = str(data.name)
         self.master_id = str(data.master_id)
-        self.inverted = str(data.inverted)
-        self.position = {'X': str(data.position.x), 'Y': str(data.position.y), 'Z': str(data.position.z)}
-        self.orientation = {'Scalar': str(data.orientation.scalar), 'RotX': str(data.orientation.rotx), 'RotY': str(data.orientation.roty), 'RotZ': str(data.orientation.rotz)}
+        self.inverted = int(data.inverted)
+        self.position = {'X': float(data.position.x), 'Y': float(data.position.y), 'Z': float(data.position.z)}
+        self.orientation = {'Scalar': float(data.orientation.scalar), 'RotX': float(data.orientation.rotx), 'RotY': float(data.orientation.roty), 'RotZ': float(data.orientation.rotz)}
 
         #Generuje rekord danych zapisywanych do pliku. Jeden rekord zawiera dane dotyczące jednego układu współrzędnych
     def generate_record_to_save(self,id):

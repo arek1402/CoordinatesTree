@@ -47,17 +47,11 @@ def check_that_file_exists(path):
 # Wyodrębnianie danych ze struktury sparsowanego  rekordu pliku YAML
 def extract_data_from_record(record): 
     link = c_Link()
-    link.name = record['Name']
-    link.id = int(record['ID'])
-    link.master_id = int(record['Master_ID'])
+    link.name = str(record['Name'])
+    link.master_id = str(record['Master'])
     link.inverted = int(record['Inverted'])
-    link.position.x = float(record['Position']['X'])
-    link.position.y = float(record['Position']['Y'])
-    link.position.z = float(record['Position']['Z'])
-    link.orientation.scalar = float(record['Orientation']['Scalar'])
-    link.orientation.rotx = float(record['Orientation']['RotX'])
-    link.orientation.roty = float(record['Orientation']['RotY'])
-    link.orientation.rotz = float(record['Orientation']['RotZ'])
+    link.position.assingn_data(record['Position'])
+    link.orientation.assingn_data(record['Orientation'])
 
     return link
 
