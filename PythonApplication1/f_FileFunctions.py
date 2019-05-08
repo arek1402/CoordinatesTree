@@ -24,7 +24,6 @@ def get_file_extension(path):
 
 #Sprawdza czy wprowadzona ściezka nie zawiera błędów"
 def check_file_path(path):
-    print(len(path))
     if(len(path) == 0):
         print('Nie wprowadzono ścieżki do pliku. \n')
         return False

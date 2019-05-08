@@ -197,7 +197,7 @@ def bubble_sort_organised_results(org_res):
     return data
 
     
-def main_program():
+def main_program(arguments):
 
     global all_links
     global current_transformation
@@ -208,28 +208,38 @@ def main_program():
 
     print('Witaj w aplikacji CoordinatesTree. Aby rozpocząć pracę wskaż lokalizację pliku źródłowego YAML.\n')
     state_number = 1
-    source_file_path = ''
-    dest_file_path = ''
+    source_file_path = str(arguments[1])
+    dest_file_path = str(arguments[2])
+
+    print(source_file_path)
+    print(dest_file_path)
+
     loop_start = True
     try:
         while(loop_start):
-            if(state_number == 1): #Lokalizacja pliku źródłowego
-                source_file_path = input('Lokalizacja: ')
-                state_number = 2
 
-            if(state_number == 2): # Sprawdzanie wprowadzonej ścieżki do pliku źródłowego
+            if(state_number == 1): # Sprawdzanie wprowadzonej ścieżki do pliku źródłowego
                 path_ok = check_file_path(source_file_path)
                 if(path_ok == True):
                     exist = check_that_file_exists(source_file_path)
                     if(exist):
-                        state_number = 3
+                        state_number = 2
                     else:
-                        print('Plik o podanej ścieżce nie istnieje. Wprowadz sciezke ponownie. \n')
-                        state_number = 1
+                        print('Plik źródłowy o podanej ścieżce nie istnieje. \n')
+                        loop_start = False
                 else:
                     print('Wprowadzona ścieżka do pliku ma nieprawidłowy format. Wprowadz ją ponownie zwracając uwagę na rozszerzenie. \n')
-                    state_number = 1
+                    loop_start = False
+           
 
+            if(state_number == 2): # Sprawdzenie ścieżki do pliku docelowego
+                path_ok = check_file_path(dest_file_path)
+                if(path_ok == True):
+                    state_number = 3
+                else:
+                    print('Wprowadzona ścieżka pliku docelowego jest nieprawidłowa. Wprowadź ją ponownie. \n')
+                    loop_start = False
+           
             if(state_number == 3): #Parsowanie pliku YAML
                 print('Odczytywanie danych... \n')
                 data = read_yaml_file(source_file_path)
@@ -244,40 +254,27 @@ def main_program():
                     state_number = 5
                 elif(master_check == False):
                     print('W pliku źródłowym znajdują się dwa układy współrzędnych o charakterze układu głównego (pole Master_ID = -1). Dozwolony jest tylko jeden taki układ.\n')
-                    state_number = 9
+                    loop_start = False
                 elif(id_check == False):
                     print('W pliku źródłowym znajdują się przynajmniej dwa układy o takim samym ID. Każdy układ musi mieć unikatowe ID.\n')
-                    state_number = 9
-
-
-            if(state_number == 5): #Zapytanie o ścieżkę do pliku docelowego
-                print('Wprowadź lokalizację pliku docelowego \n')
-                dest_file_path = input('Lokalizacja:')
-                state_number = 6
-
-            if(state_number == 6): # Sprawdzenie ścieżki do pliku docelowego
-                path_ok = check_file_path(dest_file_path)
-                if(path_ok == True):
-                    state_number = 7
-                else:
-                    print('Wprowadzona ścieżka pliku docelowego jest nieprawidłowa. Wprowadź ją ponownie. \n')
-                    state_number = 5
+                    loop_start = False
+ 
             
-            if(state_number == 7): #Analiza drzewa układów współrzędnych
+            if(state_number == 5): #Analiza drzewa układów współrzędnych
                 start_id = get_base_link_id()
                 start_transformation = np.eye(4)
                 analyze_tree(start_id, start_transformation)
                 new_tab = organize_results_to_cLink(result_tab)
                 new_tab2 = bubble_sort_organised_results(new_tab)
                 #result_tab = new_tab2
-                state_number = 8
+                state_number = 6
 
-            if(state_number == 8): #Zapis wyników działania algorytmu do pliku
+            if(state_number == 6): #Zapis wyników działania algorytmu do pliku
                 save_result_to_yaml(dest_file_path,new_tab2)
                 print('Dane zostały zapisane do pliku ', dest_file_path, '. Program zakończy teraz działanie. \n')
-                state_number = 9
+                state_number = 7
 
-            if(state_number == 9):
+            if(state_number == 7):
                 loop_start = False
         a = input()   
 
