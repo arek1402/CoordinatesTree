@@ -1,7 +1,6 @@
 from c_Position import *
 from c_Orientation import *
 from c_Link import *
-from c_Result import *
 from c_Record import *
 import numpy as np
 import numpy.linalg as nplg
@@ -48,7 +47,7 @@ def check_that_file_exists(path):
 def extract_data_from_record(record): 
     link = c_Link()
     link.name = str(record['Name'])
-    link.master_id = str(record['Master'])
+    link.master = str(record['Master'])
     link.inverted = int(record['Inverted'])
     link.position.assingn_data(record['Position'])
     link.orientation.assingn_data(record['Orientation'])
@@ -66,16 +65,20 @@ def agregate_parsed_data(data):
    for record in data:
        row = data[record]
        if i==0:
-            base_link = extract_data_from_record(row)           
+            base_link = extract_data_from_record(row)         
+            base_link.set_id(i)
             base_link.get_coordinate_system()
        else:
-            other_link = extract_data_from_record(row)         
+            other_link = extract_data_from_record(row)
+            other_link.set_id(i)
             other_link.get_coordinate_system()
             all_other_links.append(other_link)
        i = i+1
    
    final_input_data = make_data_consistent(base_link, all_other_links)
    return final_input_data
+
+
 
 # Składa wszystkie układy do jednego wektora danych, gdzie układ bazowy jest na pierwszym miejscu
 def make_data_consistent(base_link, other_links):
@@ -90,7 +93,7 @@ def make_data_consistent(base_link, other_links):
 def check_master_link_id(data):
     number_of_roots = 0
     for i in data:
-        if(i.master_id == -1):
+        if(i.master == ''):
             number_of_roots += 1
     if(number_of_roots == 1):
         return True
@@ -99,17 +102,17 @@ def check_master_link_id(data):
 
 #Sprawdza czy dane ID nie powtarza sie w danych wejściowych dla dwóch różnych układów
 def check_multiple_id(data):
-    current_id = -1
-    number_of_current_id = 0
+    current_name = 'empty'
+    number_of_current_name = 0
 
     for i in data:
-        current_id = i.id
-        number_of_current_id = 0
+        current_name = i.name
+        number_of_current_name = 0
         for j in data:
-            if(current_id == j.id):
-                number_of_current_id += 1
+            if(current_name == j.name):
+                number_of_current_name += 1
         
-        if(number_of_current_id > 1):
+        if(number_of_current_name > 1):
             return False
 
     return True

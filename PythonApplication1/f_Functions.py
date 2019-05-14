@@ -2,7 +2,6 @@
 from c_Position import *
 from c_Orientation import *
 from c_Link import *
-from c_Result import *
 from f_FileFunctions import *
 from c_Record import *
 import numpy as np
@@ -13,8 +12,10 @@ import yaml
 all_links = []
 result_links = []
 current_transformation = np.eye(4)
+old_link_transformation = np.eye(4)
 result_tab = []
 current_link_id = -1
+old_link_id = -1
 
 
 #Pobiera z listy układów cLink układ o zadanym ID
@@ -35,14 +36,14 @@ def get_cLink_name(cLink_id): #Zwraca nazwe ukladu o zadanym ID
             return result
 
 
-#Znajduje potomków układu o zadanym ID
-def find_childs(link_id):
+#Znajduje potomków układu o zadanej nazwie
+def find_childs(link_name):
     global all_links
     tab_of_childs = []
     number_of_childs = 0 
 
     for i in all_links:
-        if(i.master_id == link_id):
+        if(i.master == link_name):
             tab_of_childs.append(i.id)
             number_of_childs += 1
 
@@ -53,6 +54,7 @@ def check_childs_status(tab_of_childs, all_data):
 
     number_of_childs = len(tab_of_childs)
     number_of_checked = 0
+ 
     for i in tab_of_childs:
         temp = get_cLink(i)
         if (temp.checked == True):
@@ -99,7 +101,7 @@ def check_end_condition(all_data):
 def get_base_link_id():
     global all_links
     for i in all_links:
-        if(i.master_id == -1):
+        if(i.master == ''):
             return i.id
 
 # Wykonuje operacje mnożenia macierzowego celem uzyskania nowego przekształcenia
@@ -121,42 +123,45 @@ def analyze_tree(link_id, link_transformation):
     global result_tab
     global current_link_id
     global current_transformation
+    global old_link_id
+    global old_link_transformation
+
 
     childs = [] #Tablica przechowujaca identyfikatory potomków danego układu
     number_of_childs = [] #Liczba potomkow danego ukladu
     childs_status = False #Flaga - informacja czy wszyscy potomkowie danego układu zostali już sprawdzeni
     current_link_id = link_id
+    current_link_name = get_cLink_name(current_link_id)
     current_transformation = link_transformation
+    
 
-    if(check_end_condition(all_links) == True):  #Sprawdz warunek zakonczenia pracy algorytmu
-        return True
+    number_of_childs, childs = find_childs(current_link_name) #Wyszukuje potomków danego układu
 
-    number_of_childs, childs = find_childs(current_link_id) #Wyszukuje potomków danego układu
-
-    if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
-        childs_status = check_childs_status(childs, all_links)
+    #if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
+     #   childs_status = check_childs_status(childs, all_links)
 
     if(number_of_childs == 0 or childs_status == True): #Jesli dany uklad nie ma potomkow to zapisz aktualne przekształcenie do bazy wynikow
 
-       temp_result = c_Result() #Obiekt klasy c_Result przechowujący informacje o ID układu i jego przekształcenia względnem układu bazowego 
-       temp_result.id = link_id
-       temp_result.transform = current_transformation
-       result_tab.append(temp_result) #Dopisanie wyniku przekształcenia do tablicy wynikow
-
-       change_status(current_link_id) #Zmienia status danego ukladu na sprawdzony
-
-       current_transformation = np.eye(4)
-       current_link_id = get_base_link_id() #Wyszukuje w bazie układ bazowy i pobiera jego ID
-       analyze_tree(current_link_id, current_transformation)
+       for i in all_links:
+           if(i.id == link_id):
+               i.update_coordinate_system(current_transformation) #Zapisanie nowego przekształcenia
+               i.delete_master() #Usunięcie informacji o układzie nadrzędnym
+               i.change_status() #Zmiana statusu układu na "Checked"
+       return analyze_tree(old_link_id, old_link_transformation) #Wywołanie rekurencyjne gałęzi o jeden stopień wyżej
 
     else:
+
+        old_link_id = current_link_id #Zapisuje dane aktualnego układu współrzednych do zmiennych buforowych
+        old_link_transformation = current_transformation #Zapisuje dane aktualnego układu współrzednych do zmiennych buforowych
 
         first_child_id = get_first_child_id(childs) #Pobiera pierwszy uklad z bazy, który jest dzieckiem danego układu i nie ma statusu "Checked"
         child_link = get_cLink(first_child_id) #Pobiera ID potomka
 
+
         current_transformation = make_transformation(current_transformation, child_link.coordinate_system, child_link.inverted) #Wyznaczanie transformacji do nowego układu
         current_link_id = child_link.id #Przypisanie danych nowego układu
-        analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
+        return analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
+
 
 
 #Przekształca dane z formatu wynikowego do formatu wejściowego dla zapisu do pliku
@@ -169,7 +174,7 @@ def organize_results_to_cLink(result_tab):
         for i in result_tab:
             old_cLink = get_cLink(i.id)
             new_cLink = old_cLink
-            new_cLink.master_id = get_base_link_id()
+            new_cLink.master = get_base_link_id()
             new_cLink.coordinate_system = i.transform
             new_cLink.get_quaternion_from_matrix()
             new_cLink.get_translation_from_matrix()
@@ -196,7 +201,7 @@ def bubble_sort_organised_results(org_res):
                 
     return data
 
-    
+
 def main_program(arguments):
 
     global all_links
@@ -253,10 +258,10 @@ def main_program(arguments):
                 if(master_check == True and id_check == True):
                     state_number = 5
                 elif(master_check == False):
-                    print('W pliku źródłowym znajdują się dwa układy współrzędnych o charakterze układu głównego (pole Master_ID = -1). Dozwolony jest tylko jeden taki układ.\n')
+                    print('W pliku źródłowym znajdują się dwa układy współrzędnych o charakterze układu głównego (puste pole Master). Dozwolony jest tylko jeden taki układ.\n')
                     loop_start = False
                 elif(id_check == False):
-                    print('W pliku źródłowym znajdują się przynajmniej dwa układy o takim samym ID. Każdy układ musi mieć unikatowe ID.\n')
+                    print('W pliku źródłowym znajdują się przynajmniej dwa układy o takiej samej nazwie. Każdy układ musi mieć unikatową nazwę .\n')
                     loop_start = False
  
             

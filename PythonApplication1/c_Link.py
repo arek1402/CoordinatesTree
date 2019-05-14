@@ -9,7 +9,7 @@ class c_Link(object):
     def __init__(self):
         self.name = ""
         self.id = -1
-        self.master_id = 0
+        self.master = ""
         self.inverted = 0
         self.position = c_Position() #Zestaw danych wejsciowych w postaci lokazliacji punktu (X,Y,Z) i jego orientacji w formie kwaternionu
         self.orientation = c_Orientation() #Zestaw danych wejsciowych w postaci jego orientacji w formie kwaternionu
@@ -77,3 +77,12 @@ class c_Link(object):
         elif(option == 2):
             result = np.array([self.orientation.scalar, self.orientation.rotx, self.orientation.roty, self.orientation.rotz])
         return result.tolist()
+
+    def update_coordinate_system(self, new_system):
+        self.coordinate_system = new_system
+
+    def delete_master(self):
+        self.master = ''
+
+    def change_status(self):
+        self.checked = True

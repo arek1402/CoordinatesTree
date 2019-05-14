@@ -32,9 +32,6 @@
     <Compile Include="c_Record.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="c_Result.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="f_FileFunctions.py">
       <SubType>Code</SubType>
     </Compile>
