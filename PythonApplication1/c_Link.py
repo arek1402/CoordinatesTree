@@ -81,8 +81,8 @@ class c_Link(object):
     def update_coordinate_system(self, new_system):
         self.coordinate_system = new_system
 
-    def delete_master(self):
-        self.master = ''
+    def set_new_master(self,new_master):
+        self.master = new_master
 
     def change_status(self):
         self.checked = True

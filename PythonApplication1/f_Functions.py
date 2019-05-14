@@ -135,33 +135,40 @@ def analyze_tree(link_id, link_transformation):
     current_transformation = link_transformation
     
 
-    number_of_childs, childs = find_childs(current_link_name) #Wyszukuje potomków danego układu
+    childs = [] #Tablica przechowujaca identyfikatory potomków danego układu
+    number_of_childs = [] #Liczba potomkow danego ukladu
+    childs_status = False #Flaga - informacja czy wszyscy potomkowie danego układu zostali już sprawdzeni
+    base_link_id = get_base_link_id()
+    new_master = get_cLink_name(base_link_id)
 
-    #if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
-     #   childs_status = check_childs_status(childs, all_links)
+    if(check_end_condition(all_links) == True):  #Sprawdz warunek zakonczenia pracy algorytmu
+        return True
+
+    number_of_childs, childs = find_childs(current_link_name) #Wyszukuje potomków danego układu
+   
+    if(len(childs) > 0): #Jesli znaleziono potomków danego układu to sprawdza ich status 
+        childs_status = check_childs_status(childs, all_links)
 
     if(number_of_childs == 0 or childs_status == True): #Jesli dany uklad nie ma potomkow to zapisz aktualne przekształcenie do bazy wynikow
 
        for i in all_links:
            if(i.id == link_id):
                i.update_coordinate_system(current_transformation) #Zapisanie nowego przekształcenia
-               i.delete_master() #Usunięcie informacji o układzie nadrzędnym
+               i.set_new_master(new_master) #Usunięcie informacji o układzie nadrzędnym
                i.change_status() #Zmiana statusu układu na "Checked"
-       return analyze_tree(old_link_id, old_link_transformation) #Wywołanie rekurencyjne gałęzi o jeden stopień wyżej
+       bl_id = get_base_link_id()
+       bl_transform = np.eye(4)
+       analyze_tree(bl_id , bl_transform) #Wywołanie rekurencyjne gałęzi o jeden stopień wyżej
+
 
     else:
-
-        old_link_id = current_link_id #Zapisuje dane aktualnego układu współrzednych do zmiennych buforowych
-        old_link_transformation = current_transformation #Zapisuje dane aktualnego układu współrzednych do zmiennych buforowych
 
         first_child_id = get_first_child_id(childs) #Pobiera pierwszy uklad z bazy, który jest dzieckiem danego układu i nie ma statusu "Checked"
         child_link = get_cLink(first_child_id) #Pobiera ID potomka
 
-
         current_transformation = make_transformation(current_transformation, child_link.coordinate_system, child_link.inverted) #Wyznaczanie transformacji do nowego układu
         current_link_id = child_link.id #Przypisanie danych nowego układu
-        return analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
-
+        analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
 
 
 #Przekształca dane z formatu wynikowego do formatu wejściowego dla zapisu do pliku
@@ -268,9 +275,9 @@ def main_program(arguments):
             if(state_number == 5): #Analiza drzewa układów współrzędnych
                 start_id = get_base_link_id()
                 start_transformation = np.eye(4)
+
                 analyze_tree(start_id, start_transformation)
-                new_tab = organize_results_to_cLink(result_tab)
-                new_tab2 = bubble_sort_organised_results(new_tab)
+                new_tab2 = bubble_sort_organised_results(all_links)
                 #result_tab = new_tab2
                 state_number = 6
 
