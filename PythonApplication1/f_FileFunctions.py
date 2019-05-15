@@ -60,21 +60,24 @@ def agregate_parsed_data(data):
    base_link = c_Link()
    other_link = c_Link()
    all_other_links = []
-   i = 0
+   i = 1
+   j = 0
+   
    
    for record in data:
-       row = data[record]
-       if i==0:
+       temp_link_name = 'Link' + str(j)
+       row = record[temp_link_name]
+       if (row['Master'] == ''):
             base_link = extract_data_from_record(row)         
-            base_link.set_id(i)
+            base_link.set_id(0)
             base_link.get_coordinate_system()
        else:
             other_link = extract_data_from_record(row)
             other_link.set_id(i)
             other_link.get_coordinate_system()
             all_other_links.append(other_link)
-       i = i+1
-   
+            i = i+1
+       j += 1
    final_input_data = make_data_consistent(base_link, all_other_links)
    return final_input_data
 
