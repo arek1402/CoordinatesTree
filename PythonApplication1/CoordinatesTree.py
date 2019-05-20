@@ -7,8 +7,5 @@ from c_Orientation import *
 from c_Link import *
 from f_Functions import *
 
-arguments = []
-arguments.append('')
-arguments.append('wynik.yaml')
-arguments.append('wynik2.yaml')
-main_program(arguments)
+
+main_program(sys.argv)
