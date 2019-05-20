@@ -8,5 +8,8 @@ from c_Link import *
 from f_Functions import *
 
 
-
-main_program(sys.argv)
+arguments = []
+arguments.append('')
+arguments.append('dane_v3.yaml')
+arguments.append('xyz132.yaml')
+main_program(arguments)

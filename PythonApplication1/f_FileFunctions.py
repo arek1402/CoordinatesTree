@@ -120,13 +120,20 @@ def check_multiple_id(data):
 
     return True
 
+#Generuje dane do pliku w zadanym formacie
+def generate_data_to_save(data):
+
+    record_tab = [] 
+    for i in data:
+        temp_link = str('Link') + str(i.id)
+        temp_pos = [ float(i.position.x), float(i.position.y), float(i.position.z) ]
+        temp_ori = [ float(i.orientation.scalar), float(i.orientation.rotx), float(i.orientation.roty), float(i.orientation.rotz)]
+        record = {temp_link: {'Name': i.name, 'Master': i.master, 'Inverted': i.inverted, 'Position': temp_pos, 'Orientation': temp_ori}}
+        record_tab.append(record)
+    return record_tab
 
 def save_result_to_yaml(path, data):
     
     stream = open(path, "w")
-    
-    for i in data:
-        record = c_Record()
-        record.prepare_data_to_save(i)
-        rec_data = record.generate_record_to_save(i.id)
-        yaml.dump(rec_data, stream,default_flow_style=False, sort_keys=False )
+    result = generate_data_to_save(data)
+    yaml.dump(result, stream,default_flow_style=False, sort_keys=False )

@@ -80,6 +80,8 @@ class c_Link(object):
 
     def update_coordinate_system(self, new_system):
         self.coordinate_system = new_system
+        self.get_quaternion_from_matrix()
+        self.get_translation_from_matrix()
 
     def set_new_master(self,new_master):
         self.master = new_master

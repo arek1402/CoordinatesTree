@@ -149,13 +149,7 @@ def analyze_tree(link_id, link_transformation):
     current_link_id = link_id
     current_link_name = get_cLink_name(current_link_id)
     current_transformation = link_transformation
-    
-
-    childs = [] #Tablica przechowujaca identyfikatory potomków danego układu
-    number_of_childs = [] #Liczba potomkow danego ukladu
-    childs_status = False #Flaga - informacja czy wszyscy potomkowie danego układu zostali już sprawdzeni
-    base_link_id = get_base_link_id()
-    new_master = get_cLink_name(base_link_id)
+    bl_id = get_base_link_id()
 
     if(check_end_condition(all_links) == True):  #Sprawdz warunek zakonczenia pracy algorytmu
         return True
@@ -170,11 +164,13 @@ def analyze_tree(link_id, link_transformation):
        for i in all_links:
            if(i.id == link_id):
                i.update_coordinate_system(current_transformation) #Zapisanie nowego przekształcenia
-               i.set_new_master(new_master) #Usunięcie informacji o układzie nadrzędnym
+               i.set_new_master(bl_id) #Usunięcie informacji o układzie nadrzędnym
                i.change_status() #Zmiana statusu układu na "Checked"
-       bl_id = get_base_link_id()
-       bl_transform = np.eye(4)
-       analyze_tree(bl_id , bl_transform) #Wywołanie rekurencyjne gałęzi o jeden stopień wyżej
+               i.round_floats(5)
+               result_tab.append(i)
+       current_link_id = get_base_link_id()
+       current_transformation = np.eye(4)
+       analyze_tree(current_link_id , current_transformation)
 
 
     else:
@@ -185,6 +181,7 @@ def analyze_tree(link_id, link_transformation):
         current_transformation = make_transformation(current_transformation, child_link.coordinate_system, child_link.inverted) #Wyznaczanie transformacji do nowego układu
         current_link_id = child_link.id #Przypisanie danych nowego układu
         analyze_tree(current_link_id, current_transformation) #Rekurencyjne wywołanie funkcji analyze_tree z nowymi danymi
+
 
 
 #Przekształca dane z formatu wynikowego do formatu wejściowego dla zapisu do pliku
@@ -304,8 +301,7 @@ def main_program(args):
                 start_transformation = np.eye(4)
 
                 analyze_tree(start_id, start_transformation)
-                new_tab2 = bubble_sort_organised_results(all_links)
-                #result_tab = new_tab2
+                new_tab2 = bubble_sort_organised_results(result_tab)
                 state_number = 60
 
             if(state_number == 60): #Zapis wyników działania algorytmu do pliku
