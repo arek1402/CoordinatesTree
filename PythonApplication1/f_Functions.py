@@ -1,4 +1,4 @@
-
+﻿
 from c_Position import *
 from c_Orientation import *
 from c_Link import *
@@ -128,7 +128,7 @@ def make_transformation(master_link_transformation, slave_link_transformation, i
    
     else:
         temp_matrix = nplg.inv(master_link_transformation)
-        result_inv = np.matmul(temp_matrix, slave_link_transformation)
+        result_inv = np.matmul(slave_link_transformation, temp_matrix)
         return result_inv
 
 

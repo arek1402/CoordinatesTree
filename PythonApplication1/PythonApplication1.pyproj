@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c9fd500d-d485-45ea-8558-8307b3ead4e4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonApplication1.py</StartupFile>
+    <StartupFile>CoordinatesTree.py</StartupFile>
     <SearchPath>..\..\..\..\..\Program Files\Python37;..\..\PythonApplication1</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -35,7 +35,7 @@
     <Compile Include="f_Functions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PythonApplication1.py" />
+    <Compile Include="CoordinatesTree.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
