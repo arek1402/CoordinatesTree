@@ -37,7 +37,7 @@ def check_file_path(path):
 
 def check_that_file_exists(path):
     temp_path = Path(path)
-    if(temp_path.is_file()):
+    if(temp_path.exists()):
         return True
     else:
         return False

@@ -17,6 +17,22 @@ result_tab = []
 current_link_id = -1
 old_link_id = -1
 
+#Sprawdza czy wprowadzono poprawną liczbę argumentów
+def check_args(args):
+    if len(args) == 3:
+        return True
+    else:
+        return False
+
+#Zwraca argumenty podane z linii poleceń
+def get_args(args):
+
+    sp = args[1]
+    dp = args[2]
+
+    return sp, dp
+
+
 
 #Pobiera z listy układów cLink układ o zadanym ID
 def get_cLink(cLink_id):
@@ -209,33 +225,39 @@ def bubble_sort_organised_results(org_res):
     return data
 
 
-def main_program(arguments):
+def main_program(args):
 
     global all_links
     global current_transformation
     global result_tab
     global current_link_id
-
+    source_file_path = ''
+    dest_file_path = ''
     state_number = 0
 
-    print('Witaj w aplikacji CoordinatesTree. Aby rozpocząć pracę wskaż lokalizację pliku źródłowego YAML.\n')
-    state_number = 1
-    source_file_path = str(arguments[1])
-    dest_file_path = str(arguments[2])
-
-    print(source_file_path)
-    print(dest_file_path)
-
+    print('Witaj w aplikacji CoordinatesTree.')
+    state_number = 5
+    print(args)
     loop_start = True
     try:
         while(loop_start):
+            print(state_number, '\n')
+            if(state_number == 5): #Sprawdza czy wprowadzono poprawną liczbę argumentów
+                args_check = check_args(args)
+                if(args_check == True):
+                    state_number = 10
+                    source_file_path, dest_file_path = get_args(args)
+                else:
+                    print('Wprowadzono niepoprawną liczbę argumentów. Pierwszym argumentem powinna być ścieżka pliku źródłowego, a drugim ścieżka pliku wynikowego. \n')
+                    loop_start = False
 
-            if(state_number == 1): # Sprawdzanie wprowadzonej ścieżki do pliku źródłowego
+
+            if(state_number == 10): # Sprawdzanie wprowadzonej ścieżki do pliku źródłowego
                 path_ok = check_file_path(source_file_path)
                 if(path_ok == True):
                     exist = check_that_file_exists(source_file_path)
                     if(exist):
-                        state_number = 2
+                        state_number = 20
                     else:
                         print('Plik źródłowy o podanej ścieżce nie istnieje. \n')
                         loop_start = False
@@ -244,26 +266,31 @@ def main_program(arguments):
                     loop_start = False
            
 
-            if(state_number == 2): # Sprawdzenie ścieżki do pliku docelowego
+            if(state_number == 20): # Sprawdzenie ścieżki do pliku docelowego
                 path_ok = check_file_path(dest_file_path)
                 if(path_ok == True):
-                    state_number = 3
+                    state_number = 30
                 else:
                     print('Wprowadzona ścieżka pliku docelowego jest nieprawidłowa. Wprowadź ją ponownie. \n')
                     loop_start = False
            
-            if(state_number == 3): #Parsowanie pliku YAML
+            if(state_number == 30): #Parsowanie pliku YAML
                 print('Odczytywanie danych... \n')
-                data = read_yaml_file(source_file_path)
-                all_links = agregate_parsed_data(data)
-                state_number = 4
+                try:
+                    data = read_yaml_file(source_file_path)
+                    all_links = agregate_parsed_data(data)
+                    state_number = 40
+                except:
+                    print('Dane w pliku źródłowym mają nieprawidłowy format. Popraw go i spróbuj ponownie. \n')
+                    loop_start = False
 
-            if(state_number == 4): #Sprawdzanie poprawności danych odczytanych
+
+            if(state_number == 40): #Sprawdzanie poprawności danych odczytanych
                 master_check = check_master_link_id(all_links)
                 id_check = check_multiple_id(all_links)
 
                 if(master_check == True and id_check == True):
-                    state_number = 5
+                    state_number = 50
                 elif(master_check == False):
                     print('W pliku źródłowym znajdują się dwa układy współrzędnych o charakterze układu głównego (puste pole Master). Dozwolony jest tylko jeden taki układ.\n')
                     loop_start = False
@@ -272,23 +299,22 @@ def main_program(arguments):
                     loop_start = False
  
             
-            if(state_number == 5): #Analiza drzewa układów współrzędnych
+            if(state_number == 50): #Analiza drzewa układów współrzędnych
                 start_id = get_base_link_id()
                 start_transformation = np.eye(4)
 
                 analyze_tree(start_id, start_transformation)
                 new_tab2 = bubble_sort_organised_results(all_links)
                 #result_tab = new_tab2
-                state_number = 6
+                state_number = 60
 
-            if(state_number == 6): #Zapis wyników działania algorytmu do pliku
+            if(state_number == 60): #Zapis wyników działania algorytmu do pliku
                 save_result_to_yaml(dest_file_path,new_tab2)
                 print('Dane zostały zapisane do pliku ', dest_file_path, '. Program zakończy teraz działanie. \n')
-                state_number = 7
+                state_number = 70
 
-            if(state_number == 7):
-                loop_start = False
-        a = input()   
+            if(state_number == 70):
+                loop_start = False   
 
 
     except:

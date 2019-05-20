@@ -9,8 +9,4 @@ from f_Functions import *
 
 
 
-arguments = []
-arguments.append("")
-arguments.append("dane_v3.yaml")
-arguments.append("test3.yaml")
-main_program(arguments)
+main_program(sys.argv)

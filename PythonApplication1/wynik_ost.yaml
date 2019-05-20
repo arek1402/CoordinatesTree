@@ -1,0 +1,130 @@
+Link0:
+  Name: Base link
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 0.0
+  - 0.0
+  - 0.0
+  Orientation:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+Link1:
+  Name: Camera link
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 0.5
+  - 0.5
+  - 0.0
+  Orientation:
+  - 0.9239
+  - 0.0
+  - 0.0
+  - 0.3827
+Link2:
+  Name: Tail link
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 1.0
+  - 1.5
+  - 1.0
+  Orientation:
+  - 0.8924
+  - 0.2391
+  - 0.09905
+  - 0.3696
+Link3:
+  Name: AHRS
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 2.0
+  - 3.0
+  - 1.0
+  Orientation:
+  - 0.9125
+  - -0.05986
+  - 0.1445
+  - 0.378
+Link4:
+  Name: Tail Cam
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 5.0
+  - -3.0
+  - -1.0
+  Orientation:
+  - 0.844
+  - 0.3758
+  - 0.1557
+  - 0.3496
+Link5:
+  Name: Bottom Cam
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 2.1
+  - 2.2
+  - 2.3
+  Orientation:
+  - 0.7011
+  - 0.4305
+  - -0.561
+  - 0.0923
+Link6:
+  Name: XYZ
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 3.3
+  - 3.4
+  - -3.0
+  Orientation:
+  - 0.6744
+  - 0.3265
+  - -0.6272
+  - 0.2126
+Link7:
+  Name: GPS
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 0.0
+  - 0.0
+  - 2.5
+  Orientation:
+  - 0.9659
+  - 0.0
+  - 0.0
+  - 0.2588
+Link8:
+  Name: AI
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 2.0
+  - 3.0
+  - 4.0
+  Orientation:
+  - 0.8924
+  - 0.3696
+  - 0.09905
+  - 0.2391
+Link9:
+  Name: ML
+  Master: Base link
+  Inverted: 0
+  Position:
+  - 5.0
+  - 6.0
+  - 7.0
+  Orientation:
+  - 0.8365
+  - 0.1294
+  - -0.483
+  - 0.2241
